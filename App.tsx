@@ -5,24 +5,28 @@
  * @format
  */
 
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import AddStaffScreen from './src/screens/AddStaff/AddStaffScreen'
+import ShiftSchedulesScreen from './src/screens/ShiftSchedules/ShiftSchedulesScreen';
 import SplashScreen from './src/screens/Spalsh/SplashScreen';
+import StaffStatusScreen from './src/screens/StaffStatus/StaffStatusScreen';
+import Toast from 'react-native-toast-message';
+import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { store } from './src/app/store';
 import { Provider } from 'react-redux';
-import Config from 'react-native-config';
+import {SafeAreaProvider,useSafeAreaInsets,SafeAreaView} from 'react-native-safe-area-context';
+import { store } from './src/app/store';
+
 
 const Stack = createStackNavigator();
 
 function MyStack() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={SplashScreen} />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" component={SplashScreen}  />
+      <Stack.Screen name="Addstaff" component={AddStaffScreen} />
+      <Stack.Screen name="ShiftSchedule" component={ShiftSchedulesScreen} />
+      <Stack.Screen name="StaffStatus" component={StaffStatusScreen} />
     </Stack.Navigator>
   );
 }
@@ -41,20 +45,22 @@ function App() {
 function AppContent() {
   const safeAreaInsets = useSafeAreaInsets();
   return (
+     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
     <View style={styles.container}>
       <Provider store={store}>
         <NavigationContainer>
-          <SplashScreen />
+          <MyStack />
+           <Toast />
         </NavigationContainer>
       </Provider>
     </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 5,
+    flex: 1
   },
 });
 

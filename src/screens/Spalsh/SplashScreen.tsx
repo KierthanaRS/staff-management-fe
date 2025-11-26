@@ -11,13 +11,13 @@ const SplashScreen = ({ navigation }: any) => {
         toValue: 0,
         duration: 1000,
         useNativeDriver: true,
-      });
+      }).start(() => navigation.navigate('Addstaff'));
     }, 1500);
   }, []);
 
   return (
     <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
-      <Text style={styles.logoText}>Staff Managment</Text>
+      <Text style={styles.logoText}>Staff Management</Text>
     </Animated.View>
   );
 };
@@ -26,4 +26,3 @@ const SplashScreen = ({ navigation }: any) => {
 
 export default SplashScreen;
 
-//.start(() => navigation.replace('Home'))

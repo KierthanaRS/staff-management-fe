@@ -3,5 +3,6 @@ export const colours = {
   secondary: "#e23b25ff",
   background: "#FFFFFF",
   text: "#111827",
-  muted: "#6B7280",
+  muted: "#e0e2e6ff",
+  border: "#CCCCCC"
 };
