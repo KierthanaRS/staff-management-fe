@@ -27,6 +27,11 @@ export const styles = StyleSheet.create({
   link: {
     padding: 10,
   },
+  activeLink: {
+    padding: 10,
+    borderBottomWidth: 4,
+    borderBottomColor: theme.colours.primary,
+  },
   linkText: {
     marginLeft:10,
     fontSize: 16,

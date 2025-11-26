@@ -1,29 +1,58 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Layout from '../../layout/Layout';
+import React, { useEffect } from 'react';
+import Button from '../../components/common/Button';
+import { View, Text, ActivityIndicator,FlatList } from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { styles } from './styles/Staff.styles';
+import type { RootStackParamList } from '../../types/staff';
+import { AppDispatch, RootState } from './../../app/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchStaffs } from '../../app/slice/staffSlice';
+import StaffCard from './components/StaffCard';
 
-const StaffStatusScreen = ({ navigation }: any) => {
-  return (
-    <Layout navigation={navigation}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Staff Status</Text>
-        <Text>Staff status content goes here.</Text>
+const StaffStatusScreen = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const { loading } = useSelector((state: RootState) => state.staff);
+  const { staffList } = useSelector((state: RootState) => state.staff);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchStaffs());
+  }, []);
+  const handleAdd = () => {
+    navigation.navigate('Main', { screen: 'Addstaff' });
+  };
+   if (loading) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color="#5020fc" />
+        <Text style={styles.loadingText}>Loading data...</Text>
       </View>
-    </Layout>
+    );
+  }
+  return (
+    <View style={styles.container}>
+      <Button title="+ Add New Staff" onPress={handleAdd} variant="primary" />
+      <FlatList
+        data={staffList}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <StaffCard
+            name={item.full_name}
+            shift={item.shifts?.shift_name ?? 'No Shift'}
+            id={item.id.toString()}
+            active={item.active}
+            onEdit={() =>
+              navigation.navigate('Main', {
+                screen: 'Addstaff'
+              })
+            }
+            onDelete={() => console.log('delete')}
+          />
+        )}
+        contentContainerStyle={{ paddingTop: 15 }}
+      />
+    </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-});
 
 export default StaffStatusScreen;

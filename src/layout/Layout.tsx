@@ -1,13 +1,19 @@
 import React from 'react';
 import { View, Text, TouchableOpacity} from 'react-native';
-import { styles } from './layout.style'
+import { useRoute, useNavigation, NavigationProp } from '@react-navigation/native';
+import { styles } from './Layout.style'
+import type {RootStackParamList} from '../types/staff'
 
 interface LayoutProps {
-  navigation: any;
   children: React.ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ navigation, children }) => {
+
+
+const Layout: React.FC<LayoutProps> = ({  children }) => {
+  const route = useRoute();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
@@ -15,14 +21,14 @@ const Layout: React.FC<LayoutProps> = ({ navigation, children }) => {
       </View>
       <View style={styles.header}>
         <TouchableOpacity
-          style={styles.link}
-          onPress={() => navigation.navigate('StaffStatus')}
+          style={route.name === 'StaffStatus' ? styles.activeLink : styles.link}
+         onPress={() => navigation.navigate("Main", {screen: "StaffStatus"})}
         >
           <Text style={styles.linkText}>Staff Status</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.link}
-          onPress={() => navigation.navigate('ShiftSchedule')}
+          style={route.name === 'ShiftSchedule' ? styles.activeLink : styles.link}
+          onPress={() => navigation.navigate("Main", { screen: "ShiftSchedule"})}
         >
           <Text style={styles.linkText}>Shift Schedules</Text>
         </TouchableOpacity>

@@ -1,45 +1,178 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import Config from 'react-native-config';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import Config from "react-native-config";
+import {StaffState} from '../../types/staff'
+const BASE_URL = `${Config.REACT_NATIVE_BACKEND_URL}/staff`;
 
-export const fetchStaffDetails = createAsyncThunk(
-    'staff/fetchStaffDetails',
-    async (_, thunkAPI) => {
+export const fetchStaffs = createAsyncThunk(
+  "staff/fetchAll",
+  async (_, thunkAPI) => {
     try {
-      const backend = Config.REACT_NATIVE_BACKEND_URL ;
-      const res= await axios.get(`${backend}/staff`)
-      return res.data;
-    } catch (err) {
-        throw new Error(`Failed to fetch staff details ${err}`)
+      const res = await axios.get(BASE_URL);
+      return res.data.data; // APIResponse.success() stores data in .data
+    } catch (error) {
+      const message =
+        axios.isAxiosError(error)
+          ? error.response?.data?.message || "Failed to fetch staff"
+          : "Failed to fetch staff";
+
+      return thunkAPI.rejectWithValue(message);
     }
-  },
-)
+  }
+);
+
+export const fetchStaffById = createAsyncThunk(
+  "staff/fetchById",
+  async (id: number, thunkAPI) => {
+    try {
+      const res = await axios.get(`${BASE_URL}/${id}`);
+      return res.data.data;
+    } catch (error) {
+      const message =
+        axios.isAxiosError(error)
+          ? error.response?.data?.message || "Failed to fetch staff"
+          : "Failed to fetch staff";
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const createStaff = createAsyncThunk(
+  "staff/create",
+  async (payload: any, thunkAPI) => {
+    try {
+      const res = await axios.post(BASE_URL, payload);
+      return res.data.data; // newly created staff
+    } catch (error) {
+      const message =
+        axios.isAxiosError(error)
+          ? error.response?.data?.message || "Failed to create staff"
+          : "Failed to create staff";
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const updateStaffData = createAsyncThunk(
+  "staff/update",
+  async ({ id, data }: { id: number; data: any }, thunkAPI) => {
+    try {
+      const res = await axios.put(`${BASE_URL}/${id}`, data);
+      return res.data.data;
+    } catch (error) {
+      const message =
+        axios.isAxiosError(error)
+          ? error.response?.data?.message || "Failed to update staff"
+          : "Failed to update staff";
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const deleteStaffData = createAsyncThunk(
+  "staff/delete",
+  async (id: number, thunkAPI) => {
+    try {
+      await axios.delete(`${BASE_URL}/${id}`);
+      return id; // returning ID to remove from store
+    } catch (error) {
+      const message =
+        axios.isAxiosError(error)
+          ? error.response?.data?.message || "Failed to delete staff"
+          : "Failed to delete staff";
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+const initialState: StaffState = {
+  staffList: [],
+  selectedStaff: null,
+  loading: false,
+  error: null,
+};
 
 const staffSlice = createSlice({
   name: "staff",
-  initialState: {
-    staffList: [],
-    loading: false,
-    error: null as string | null,
+  initialState,
+  reducers: {
+    clearStaffError: (state) => {
+      state.error = null;
+    },
   },
-
-  reducers: {},
 
   extraReducers: (builder) => {
     builder
-      .addCase(fetchStaffDetails.pending, (state) => {
+      .addCase(fetchStaffs.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
-      .addCase(fetchStaffDetails.fulfilled, (state, action) => {
+      .addCase(fetchStaffs.fulfilled, (state, action) => {
         state.loading = false;
         state.staffList = action.payload;
       })
-      .addCase(fetchStaffDetails.rejected, (state, action) => {
+      .addCase(fetchStaffs.rejected, (state, action) => {
         state.loading = false;
-        state.error =  "Something went wrong";
+        state.error = action.payload as string;
+      })
+
+      .addCase(fetchStaffById.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchStaffById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.selectedStaff = action.payload;
+      })
+      .addCase(fetchStaffById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+
+      .addCase(createStaff.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createStaff.fulfilled, (state, action) => {
+        state.loading = false;
+        state.staffList.push(action.payload);
+      })
+      .addCase(createStaff.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+
+      .addCase(updateStaffData.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateStaffData.fulfilled, (state, action) => {
+        state.loading = false;
+        state.staffList = state.staffList.map((staff) =>
+          staff.id === action.payload.id ? action.payload : staff
+        );
+      })
+      .addCase(updateStaffData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+
+      .addCase(deleteStaffData.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteStaffData.fulfilled, (state, action) => {
+        state.loading = false;
+        state.staffList = state.staffList.filter(
+          (staff) => staff.id !== action.payload
+        );
+      })
+      .addCase(deleteStaffData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
       });
   },
 });
+
+export const { clearStaffError } = staffSlice.actions;
 
 export default staffSlice.reducer;

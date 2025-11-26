@@ -5,10 +5,8 @@
  * @format
  */
 
-import AddStaffScreen from './src/screens/AddStaff/AddStaffScreen'
-import ShiftSchedulesScreen from './src/screens/ShiftSchedules/ShiftSchedulesScreen';
+import LayoutScreen from './src/layout/LayoutScreen';
 import SplashScreen from './src/screens/Spalsh/SplashScreen';
-import StaffStatusScreen from './src/screens/StaffStatus/StaffStatusScreen';
 import Toast from 'react-native-toast-message';
 import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -24,9 +22,8 @@ function MyStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={SplashScreen}  />
-      <Stack.Screen name="Addstaff" component={AddStaffScreen} />
-      <Stack.Screen name="ShiftSchedule" component={ShiftSchedulesScreen} />
-      <Stack.Screen name="StaffStatus" component={StaffStatusScreen} />
+      <Stack.Screen name="Main" component={LayoutScreen}  />
+     
     </Stack.Navigator>
   );
 }

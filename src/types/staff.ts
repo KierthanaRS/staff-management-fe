@@ -35,3 +35,32 @@ export interface ShiftState {
   loading: boolean;
   status: 'idle' | 'loading' | 'success' | 'error';
 }
+
+export interface StaffState {
+  staffList: any[];
+  selectedStaff: any | null;
+  loading: boolean;
+  error: string | null;
+}
+
+export type RootStackParamList = {
+  Main: { screen: 'StaffStatus' | 'ShiftSchedule' | 'Addstaff' };
+  StaffStatus: undefined;
+  ShiftSchedule: undefined;
+  Addstaff: undefined;
+};
+
+export interface StaffCardProps {
+  name: string;
+  shift: string;
+  id: string;
+  active: boolean;
+  onEdit: () => void;
+  onDelete: () => void;
+}
+
+export interface TimePickerProps {
+  label?: string;
+  value: string;
+  onChange: (time: string) => void;
+}

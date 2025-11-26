@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Email from './components/Email';
-import Layout from '../../layout/Layout';
 import Name from './components/Name';
-import NestedButton from './components/Button';
+import NestedButton from './components/NestedButton';
 import PhoneNumber from './components/PhoneNumber';
 import Role from './components/Role';
 import Shift from './components/Shift';
-import Toast from 'react-native-toast-message';
 import { AppDispatch, RootState } from './../../app/store';
 import { addStaffStyles } from './styles/AddStaffScreen.styles';
 import { fetchShifts } from './../../app/slice/shiftSlice';
@@ -14,7 +12,7 @@ import { FormData, Ref } from '../../types/staff';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
 
-const AddStaffScreen: React.FC<any> = ({ navigation }) => {
+const AddStaffScreen: React.FC<any> = () => {
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
     phoneNumber: '',
@@ -48,10 +46,6 @@ const AddStaffScreen: React.FC<any> = ({ navigation }) => {
   }
 
   if (status === 'error') {
-    Toast.show({
-      type: 'error',
-      text1: 'Failed to load the data',
-    });
     return (
       <View>
         <Text>Failed to load shift data</Text>
@@ -78,68 +72,62 @@ const AddStaffScreen: React.FC<any> = ({ navigation }) => {
   };
 
   return (
-    <Layout navigation={navigation}>
-      <View style={addStaffStyles.container}>
-        <ScrollView
-          style={addStaffStyles.scrollView}
-          contentContainerStyle={addStaffStyles.scrollViewContent}
-          showsVerticalScrollIndicator={false}
-        >
-          <Text style={addStaffStyles.title}>Add New Staff Member</Text>
-          <View style={addStaffStyles.underline}></View>
-          <View style={addStaffStyles.formContainer}>
-            <Name
-              ref={nameRef}
-              formData={formData}
-              errors={errors}
-              setErrors={setErrors}
-              handleInputChange={handleInputChange}
-            />
-
-            <Email
-              ref={emailRef}
-              formData={formData}
-              errors={errors}
-              setErrors={setErrors}
-              handleInputChange={handleInputChange}
-            />
-
-            <PhoneNumber
-              ref={phoneRef}
-              formData={formData}
-              errors={errors}
-              setErrors={setErrors}
-              handleInputChange={handleInputChange}
-            />
-
-            <Shift
-              ref={shiftRef}
-              formData={formData}
-              errors={errors}
-              setErrors={setErrors}
-              handleInputChange={handleInputChange}
-            />
-
-            <Role
-              ref={roleRef}
-              formData={formData}
-              errors={errors}
-              setErrors={setErrors}
-              handleInputChange={handleInputChange}
-            />
-          </View>
-          <View style={{ height: 140 }} />
-        </ScrollView>
-        <View style={addStaffStyles.footer}>
-          <NestedButton
-            loading={loading}
-            setLoading={setLoading}
-            setFormData={setFormData}
-            validateForm={validateForm}
+    <View style={addStaffStyles.container}>
+      <ScrollView
+        style={addStaffStyles.scrollView}
+        contentContainerStyle={addStaffStyles.scrollViewContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <Text style={addStaffStyles.title}>Add New Staff Member</Text>
+        <View style={addStaffStyles.underline}></View>
+        <View style={addStaffStyles.formContainer}>
+          <Name
+            ref={nameRef}
+            formData={formData}
+            errors={errors}
+            setErrors={setErrors}
+            handleInputChange={handleInputChange}
+          />
+          <Email
+            ref={emailRef}
+            formData={formData}
+            errors={errors}
+            setErrors={setErrors}
+            handleInputChange={handleInputChange}
+          />
+          <PhoneNumber
+            ref={phoneRef}
+            formData={formData}
+            errors={errors}
+            setErrors={setErrors}
+            handleInputChange={handleInputChange}
+          />
+          <Shift
+            ref={shiftRef}
+            formData={formData}
+            errors={errors}
+            setErrors={setErrors}
+            handleInputChange={handleInputChange}
+          />
+          <Role
+            ref={roleRef}
+            formData={formData}
+            errors={errors}
+            setErrors={setErrors}
+            handleInputChange={handleInputChange}
           />
         </View>
+        <View style={{ height: 140 }} />
+      </ScrollView>
+      <View style={addStaffStyles.footer}>
+        <NestedButton
+          loading={loading}
+          setLoading={setLoading}
+          setFormData={setFormData}
+          validateForm={validateForm}
+        />
       </View>
-    </Layout>
+    </View>
   );
 };
 

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { theme } from '../../../theme/index';
+import { theme } from '../../../theme';
 
 export const addStaffStyles = StyleSheet.create({
   loading: {
@@ -16,24 +16,24 @@ export const addStaffStyles = StyleSheet.create({
   },
   activitIndicator: {
     fontSize: 16,
-    color: '#00F',
+    color: theme.colours.primary,
     textAlign: 'center',
     marginTop: 16,
   },
   container: {
-      flex: 1,
-  backgroundColor: theme.colours.background,
-  paddingHorizontal: 20,
-  paddingTop: 20,       
-  margin: 20,           
-  borderRadius: 20,     
-  elevation: 8,         
-  shadowColor: theme.colours.border,  
-  shadowOffset: { width: 0, height: 4 },
-  shadowOpacity: 0.15,
-  shadowRadius: 8,
-  overflow: 'hidden',
-},
+    flex: 1,
+    backgroundColor: theme.colours.background,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    margin: 20,
+    borderRadius: 20,
+    elevation: 8,
+    shadowColor: theme.colours.border,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    overflow: 'hidden',
+  },
   title: {
     fontSize: theme.typography.xl,
     fontWeight: '900',
@@ -57,47 +57,46 @@ export const addStaffStyles = StyleSheet.create({
   buttonContainer: {
     marginTop: 30,
     marginBottom: 20,
-    flexDirection:'column',
-    gap:10,
+    flexDirection: 'column',
+    gap: 10,
   },
   scrollView: {
     flex: 1,
-    padding:10
+    padding: 10,
   },
   scrollViewContent: {
     flexGrow: 1,
     paddingBottom: 20,
   },
   countryPhoneRow: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  marginTop: 10,
-},
-underline:{
-  borderBottomWidth:1,
-  borderBottomColor:theme.colours.border,
-  marginBottom:20,
-},
-countryCodeWrapper: {
-  flex: 0.3,   
-},
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+  underline: {
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colours.border,
+    marginBottom: 20,
+  },
+  countryCodeWrapper: {
+    flex: 0.3,
+  },
 
-phoneInputWrapper: {
-  flex: 0.65, 
-},
-scrollContent: {
-  paddingBottom: 20,
-},
+  phoneInputWrapper: {
+    flex: 0.65,
+  },
+  scrollContent: {
+    paddingBottom: 20,
+  },
 
-footer: {
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  right: 0,
-  paddingHorizontal: 20,
-  paddingBottom: 5,
-  backgroundColor:theme.colours.background
-},
-
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingHorizontal: 20,
+    paddingBottom: 5,
+    backgroundColor: theme.colours.background,
+  },
 });

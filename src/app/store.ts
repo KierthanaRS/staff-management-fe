@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import shiftReducer from './slice/shiftSlice'
+import staffReducer from './slice/staffSlice'
 
 export const store = configureStore({
   reducer: {
     shift: shiftReducer,
+    staff: staffReducer,
   },
 })
 

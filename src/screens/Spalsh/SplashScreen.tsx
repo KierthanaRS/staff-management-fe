@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Text, Animated } from 'react-native';
-import {styles } from './styles/splash.style'
+import { styles } from './styles/Splash.style';
 
 const SplashScreen = ({ navigation }: any) => {
   const fadeAnim = useRef(new Animated.Value(1)).current;
@@ -11,7 +11,11 @@ const SplashScreen = ({ navigation }: any) => {
         toValue: 0,
         duration: 1000,
         useNativeDriver: true,
-      }).start(() => navigation.navigate('Addstaff'));
+      }).start(() =>
+        navigation.navigate('Main', {
+          screen: 'StaffStatus',
+        }),
+      );
     }, 1500);
   }, []);
 
@@ -22,7 +26,4 @@ const SplashScreen = ({ navigation }: any) => {
   );
 };
 
-
-
 export default SplashScreen;
-
