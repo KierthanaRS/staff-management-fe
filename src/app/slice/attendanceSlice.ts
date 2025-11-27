@@ -45,6 +45,20 @@ export const checkOut = createAsyncThunk(
   },
 );
 
+export const getAttendance = createAsyncThunk(
+  'attendance/get',
+  async (_, thunkAPI) => {
+    try {
+      const res = await axios.get(BASE_URL);
+      return res.data.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Failed to get attendance details',
+      );
+    }
+  },
+);
+
 const attendanceSlice = createSlice({
   name: 'attendance',
   initialState,
@@ -63,6 +77,19 @@ const attendanceSlice = createSlice({
         state.error = action.payload as string;
       })
       .addCase(checkOut.rejected, (state, action) => {
+        state.error = action.payload as string;
+      })
+      .addCase(getAttendance.fulfilled, (state, action) => {
+        const attendance = action.payload;
+        const mapping: Record<number, number> = {};
+
+        attendance.forEach((entry: any) => {
+          mapping[entry.staff_id] = entry.id;
+        });
+
+        state.checkIns = mapping;
+      })
+      .addCase(getAttendance.rejected, (state, action) => {
         state.error = action.payload as string;
       });
   },

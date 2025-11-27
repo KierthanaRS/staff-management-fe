@@ -77,6 +77,7 @@ const initialState: StaffState = {
   selectedStaff: null,
   loading: false,
   error: null,
+  status: 'idle'
 };
 
 const staffSlice = createSlice({
@@ -100,6 +101,7 @@ const staffSlice = createSlice({
       .addCase(fetchStaffs.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+        state.status='error';
       })
 
       .addCase(createStaff.pending, (state) => {
@@ -112,6 +114,7 @@ const staffSlice = createSlice({
       .addCase(createStaff.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+        state.status='error';
       })
 
       .addCase(updateStaffData.pending, (state) => {
@@ -126,6 +129,7 @@ const staffSlice = createSlice({
       .addCase(updateStaffData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+        state.status='error';
       })
 
       .addCase(deleteStaffData.pending, (state) => {
@@ -140,6 +144,7 @@ const staffSlice = createSlice({
       .addCase(deleteStaffData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+        state.status='error';
       });
   },
 });

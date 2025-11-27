@@ -5,6 +5,7 @@ import NestedButton from './components/NestedButton';
 import PhoneNumber from './components/PhoneNumber';
 import Role from './components/Role';
 import Shift from './components/Shift';
+import Toast from 'react-native-toast-message'
 import { AppDispatch, RootState } from './../../app/store';
 import { addStaffStyles } from './styles/AddStaffScreen.styles';
 import { fetchShifts } from './../../app/slice/shiftSlice';
@@ -46,11 +47,10 @@ const AddStaffScreen: React.FC<any> = ({ route }) => {
   }
 
   if (status === 'error') {
-    return (
-      <View>
-        <Text>Failed to load shift data</Text>
-      </View>
-    );
+    Toast.show({
+      type:'error',
+      text1:'Failed to load shift data'
+    })
   }
 
   const validateForm = (): boolean => {

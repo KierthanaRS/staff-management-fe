@@ -4,19 +4,26 @@ import InputField from '../../../components/common/InputField';
 import React, { useState } from 'react';
 import TimePicker from '../../../components/common/TimePicker';
 import Toast from 'react-native-toast-message';
-import { AppDispatch } from '../../../app/store';
+import { AppDispatch,RootState } from '../../../app/store';
 import { createShift } from '../../../app/slice/shiftSlice';
 import { styles } from '../styles/NewShift.styles';
 import { View, Text } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const NewShift: React.FC = () => {
   const [shiftName, setShiftName] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [days, setDays] = useState<string[]>([]);
-
+  const { status } = useSelector((state: RootState) => state.shift);
   const dispatch = useDispatch<AppDispatch>();
+
+  if ( status === 'error') {
+    Toast.show({
+      type: 'error',
+      text1: 'Failed to add shift data',
+    });
+  }
   const handleAddShift = () => {
     try {
       dispatch(

@@ -15,6 +15,7 @@ export interface StaffState {
   selectedStaff: any | null;
   loading: boolean;
   error: string | null;
+  status: string;
 }
 
 export interface CreateStaffPayload {

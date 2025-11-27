@@ -11,17 +11,18 @@ import type { RootState, AppDispatch } from '../../../app/store';
 const StaffCard = ({ name, shift, id, onEdit, onDelete }: StaffCardProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const staffId = Number(id);
-  const attendanceId = useSelector(
-    (state: RootState) => state.attendance.checkIns[staffId],
+   const attendanceId = useSelector(
+    (state: RootState) => state.attendance.checkIns[staffId]
   );
-  const [isCheckedIn, setIsChecked] = useState(!!attendanceId);
+  console.log(attendanceId);
+  console.log();
+  const isCheckedIn = !!attendanceId;
   const handleToggle = () => {
     if (!isCheckedIn) {
       dispatch(checkIn(staffId));
     } else {
       dispatch(checkOut({ attendance_id: attendanceId }));
     }
-    setIsChecked(prev => !prev);
   };
   return (
     <View style={styles.card}>

@@ -1,7 +1,9 @@
 import Button from '../../components/common/Button';
 import React, { useEffect } from 'react';
 import StaffCard from './components/StaffCard';
+import Toast from 'react-native-toast-message';
 import { AppDispatch, RootState } from './../../app/store';
+import { getAttendance } from '../../app/slice/attendanceSlice';
 import { fetchStaffs, deleteStaffData } from '../../app/slice/staffSlice';
 import { styles } from './styles/Staff.styles';
 import { theme } from '../../theme';
@@ -14,10 +16,20 @@ const StaffStatusScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { loading } = useSelector((state: RootState) => state.staff);
   const { staffList } = useSelector((state: RootState) => state.staff);
+  const { checkIns } = useSelector((state: RootState) => state.attendance);
+  const { status } = useSelector((state: RootState) => state.staff);
   const dispatch = useDispatch<AppDispatch>();
+  
+  if ( status === 'error') {
+    Toast.show({
+      type: 'error',
+      text1: 'Failed to load staff data',
+    });
+  }
 
   useEffect(() => {
     dispatch(fetchStaffs());
+    dispatch(getAttendance());   
   }, []);
   const handleAdd = () => {
     navigation.navigate('Main', { screen: 'Addstaff', params: undefined });

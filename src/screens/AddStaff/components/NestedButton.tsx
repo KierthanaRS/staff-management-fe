@@ -3,17 +3,26 @@ import Button from '../../../components/common/Button';
 import Toast from 'react-native-toast-message';
 import { addStaffStyles } from '../styles/AddStaffScreen.styles';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { AppDispatch } from '../../../app/store';
+import { AppDispatch, RootState } from '../../../app/store';
 import { View } from 'react-native';
 import { createStaff, updateStaffData } from '../../../app/slice/staffSlice';
 import { NestedButtonProps } from '../../../types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import type {RootStackParamList} from '../../../types'
 
 const NestedButton: React.FC<NestedButtonProps> = props => {
   const { isEdit, editId, formData,loading, validateForm, setFormData, setLoading } = props;
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const { status } = useSelector((state: RootState) => state.staff);
   const dispatch = useDispatch<AppDispatch>();
+
+  if ( status === 'error') {
+    Toast.show({
+      type: 'error',
+      text1: 'Failed to process staff data',
+    });
+  }
+  
   const handleRegister = async () => {
     if (!validateForm()) return;
 
