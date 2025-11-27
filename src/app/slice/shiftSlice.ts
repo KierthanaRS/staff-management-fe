@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Config from "react-native-config";
-import { ShiftState } from "../../types/staff"
+import { ShiftState, CreateShiftPayload } from "../../types/staff"
+
 const BASE_URL = `${Config.REACT_NATIVE_BACKEND_URL}/shift`;
 
 export const fetchShifts = createAsyncThunk(
@@ -34,16 +35,17 @@ export const fetchShiftById = createAsyncThunk(
   }
 );
 
-export const createShift = createAsyncThunk(
+export const createShift = createAsyncThunk<any,CreateShiftPayload>(
   "shifts/create",
   async (payload, thunkAPI) => {
     try {
       const response = await axios.post(BASE_URL, payload);
-      return response.data.data; // return created shift
+      return response.data.data;
     } catch (error) {
       const message = axios.isAxiosError(error)
         ? error.response?.data?.message || "Failed to create shift"
         : "Failed to create shift";
+
       return thunkAPI.rejectWithValue(message);
     }
   }

@@ -6,16 +6,28 @@ import { View } from 'react-native';
 import type {RootStackParamList} from '../../../types/staff'
 import Toast from 'react-native-toast-message';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { AppDispatch } from '../../../app/store';
+import { createStaff } from '../../../app/slice/staffSlice';
+import { useDispatch } from 'react-redux';
 
 const NestedButton: React.FC<ButtonProps> = props => {
-  const { loading, validateForm, setFormData, setLoading } = props;
+  const { formData,loading, validateForm, setFormData, setLoading } = props;
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const dispatch = useDispatch<AppDispatch>();
   const handleRegister = async () => {
     if (!validateForm()) return;
 
     setLoading(true);
     try {
-      await new Promise<void>(resolve => setTimeout(() => resolve(), 2000));
+      dispatch(createStaff({
+        full_name: formData.fullName,
+        email: formData.email,
+        phone_number: formData.phoneNumber || "",
+        shift_id: Number(formData.shift),
+        staffs_role:formData.role
+      }
+
+      ))
       Toast.show({
         type: 'success',
         text1: 'Staff Added!',
@@ -35,6 +47,7 @@ const NestedButton: React.FC<ButtonProps> = props => {
       });
     } finally {
       setLoading(false);
+      navigation.navigate("Main",{screen:"StaffStatus"})
     }
   };
 

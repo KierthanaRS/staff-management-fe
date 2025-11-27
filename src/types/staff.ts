@@ -19,6 +19,7 @@ export interface Props {
 }
 
 export interface ButtonProps {
+  formData: FormData,
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   loading: boolean,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -63,4 +64,19 @@ export interface TimePickerProps {
   label?: string;
   value: string;
   onChange: (time: string) => void;
+}
+
+export interface CreateShiftPayload {
+  shift_name: string;
+  start_time: string;
+  end_time: string;
+  shift_days: string[];
+}
+
+export interface CreateStaffPayload{
+  full_name: string,
+  email: string,
+  phone_number: string,
+  shift_id: number,
+  staffs_role: string
 }

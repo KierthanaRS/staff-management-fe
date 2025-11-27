@@ -13,13 +13,10 @@ const DaySelector = ({ value, onChange }: Props) => {
 
   const toggleDay = (day: string) => {
     if (value.includes(day)) {
-        console.log("Hi There")
       onChange(value.filter(d => d !== day)); 
     } else {
-      // add the day immutably and notify parent
       onChange([...value, day]);
     }
-    console.log(value);
   };
 
   return (

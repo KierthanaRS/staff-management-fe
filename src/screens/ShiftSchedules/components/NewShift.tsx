@@ -1,37 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import InputField from '../../../components/common/InputField';
 import TimePicker from '../../../components/common/TimePicker';
 import Button from '../../../components/common/Button';
 import { styles } from '../styles/NewShift.styles';
 import { View, Text } from 'react-native';
 import DaySelector from '../../../components/common/DaySelector';
+import { AppDispatch } from '../../../app/store';
+import { createShift } from '../../../app/slice/shiftSlice';
+import { useDispatch } from 'react-redux';
+import Toast from 'react-native-toast-message';
 
 const NewShift: React.FC = () => {
+  const [shiftName, setShiftName] = useState('');
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  const [days, setDays] = useState<string[]>([]);
+
+  const dispatch = useDispatch<AppDispatch>();
+  const handleAddShift = () => {
+    try {
+      dispatch(
+        createShift({
+          shift_name: shiftName,
+          start_time: startTime,
+          end_time: endTime,
+          shift_days: days,
+        }),
+      );
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: `${error}`,
+      });
+    }
+    finally {
+      setDays([]);
+      setEndTime('');
+      setShiftName('');
+      setStartTime('');
+    }
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Add New Shift</Text>
       <View style={styles.underline}></View>
-        <InputField
-          value=""
-          placeholder="Shift Name (e.g., Closing Shift)"
-          onChangeText={() => {}}
-        />
-        <View style={styles.timer}>
-          <View style={styles.timerComponent}>
-            <TimePicker label="Start Time" value="00:00" onChange={() => {}} />
-          </View>
-          <View style={styles.timerComponent}>
-            <TimePicker label=" End Time" value="00:00" onChange={() => {}} />
-          </View>
+      <InputField
+        value={shiftName}
+        placeholder="Shift Name (e.g., Closing Shift)"
+        onChangeText={setShiftName}
+      />
+
+      <View style={styles.timer}>
+        <View style={styles.timerComponent}>
+          <TimePicker
+            label="Start Time"
+            value={startTime}
+            onChange={setStartTime}
+          />
         </View>
-        <DaySelector 
-          value={[]}
-          onChange={() => {}}
-        />
-        <Button
-         title="+  Create Shift Schedule"
-         onPress={()=>{}}
-         />
+        <View style={styles.timerComponent}>
+          <TimePicker label="End Time" value={endTime} onChange={setEndTime} />
+        </View>
+      </View>
+      <DaySelector value={days} onChange={setDays} />
+      <Button title="+  Create Shift Schedule" onPress={handleAddShift} />
     </View>
   );
 };

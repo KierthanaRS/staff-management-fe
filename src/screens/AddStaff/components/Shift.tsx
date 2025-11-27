@@ -10,10 +10,14 @@ import {  RootState } from '../../../app/store';
 const Shift = forwardRef<Ref, Props>((props, ref) => {
   const { formData, errors, setErrors, handleInputChange } = props;
     const { shifts } = useSelector((state: RootState) => state.shift);
-    const data = shifts.map(shift => ({
-      label: shift.shift_name,
-      value: shift.id,
-    }));
+    let data: { label: string; value: string }[] = [];
+    if( shifts.length>0){
+      data = shifts.map(shift => ({
+        label: shift.shift_name,
+        value: String(shift.id),
+      }));
+    }
+   
 
   const validate = (): boolean => {
     const newErrors: Partial<FormData> = {};

@@ -28,7 +28,7 @@ const AddStaffScreen: React.FC<any> = () => {
   const shiftRef = useRef<Ref>(null);
   const roleRef = useRef<Ref>(null);
   const { status } = useSelector((state: RootState) => state.shift);
-  // const { shifts } = useSelector((state: RootState) => state.shift);
+  const { shifts } = useSelector((state: RootState) => state.shift);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -121,6 +121,7 @@ const AddStaffScreen: React.FC<any> = () => {
       </ScrollView>
       <View style={addStaffStyles.footer}>
         <NestedButton
+        formData={formData}
           loading={loading}
           setLoading={setLoading}
           setFormData={setFormData}

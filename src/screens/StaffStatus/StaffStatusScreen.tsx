@@ -46,7 +46,7 @@ const StaffStatusScreen = () => {
                 screen: 'Addstaff'
               })
             }
-            onDelete={() => console.log('delete')}
+            onDelete={() => {}}
           />
         )}
         contentContainerStyle={{ paddingTop: 15 }}
