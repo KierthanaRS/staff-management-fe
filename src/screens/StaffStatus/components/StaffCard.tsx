@@ -9,7 +9,6 @@ const StaffCard = ({
   name,
   shift,
   id,
-  active,
   onEdit,
   onDelete,
 }: StaffCardProps) => {

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Config from "react-native-config";
-import {StaffState, CreateStaffPayload} from '../../types/staff'
+import {StaffState, CreateStaffPayload, DeletePayload} from '../../types/staff'
 const BASE_URL = `${Config.REACT_NATIVE_BACKEND_URL}/staff`;
 
 export const fetchStaffs = createAsyncThunk(
@@ -72,12 +72,12 @@ export const updateStaffData = createAsyncThunk(
   }
 );
 
-export const deleteStaffData = createAsyncThunk(
+export const deleteStaffData = createAsyncThunk<any,DeletePayload>(
   "staff/delete",
-  async (id: number, thunkAPI) => {
+  async (props, thunkAPI) => {
     try {
-      await axios.delete(`${BASE_URL}/${id}`);
-      return id; // returning ID to remove from store
+      await axios.delete(`${BASE_URL}/${props.id}`);
+      return props.id; 
     } catch (error) {
       const message =
         axios.isAxiosError(error)

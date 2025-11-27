@@ -6,7 +6,7 @@ import { styles } from './styles/Staff.styles';
 import type { RootStackParamList } from '../../types/staff';
 import { AppDispatch, RootState } from './../../app/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchStaffs } from '../../app/slice/staffSlice';
+import { fetchStaffs,deleteStaffData } from '../../app/slice/staffSlice';
 import StaffCard from './components/StaffCard';
 
 const StaffStatusScreen = () => {
@@ -21,6 +21,10 @@ const StaffStatusScreen = () => {
   const handleAdd = () => {
     navigation.navigate('Main', { screen: 'Addstaff' });
   };
+
+  const handleDelete = ( id : number) => {
+     dispatch(deleteStaffData( {id} ))
+  }
    if (loading) {
     return (
       <View style={styles.loading}>
@@ -40,13 +44,12 @@ const StaffStatusScreen = () => {
             name={item.full_name}
             shift={item.shifts?.shift_name ?? 'No Shift'}
             id={item.id.toString()}
-            active={item.active}
             onEdit={() =>
               navigation.navigate('Main', {
                 screen: 'Addstaff'
               })
             }
-            onDelete={() => {}}
+            onDelete={()=>handleDelete(item.id)}
           />
         )}
         contentContainerStyle={{ paddingTop: 15 }}

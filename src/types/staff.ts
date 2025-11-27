@@ -55,7 +55,6 @@ export interface StaffCardProps {
   name: string;
   shift: string;
   id: string;
-  active: boolean;
   onEdit: () => void;
   onDelete: () => void;
 }
@@ -79,4 +78,8 @@ export interface CreateStaffPayload{
   phone_number: string,
   shift_id: number,
   staffs_role: string
+}
+
+export interface DeletePayload{
+  id: number
 }

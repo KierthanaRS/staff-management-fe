@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Config from "react-native-config";
-import { ShiftState, CreateShiftPayload } from "../../types/staff"
+import { ShiftState, CreateShiftPayload, DeletePayload } from "../../types/staff"
 
 const BASE_URL = `${Config.REACT_NATIVE_BACKEND_URL}/shift`;
 
@@ -51,12 +51,13 @@ export const createShift = createAsyncThunk<any,CreateShiftPayload>(
   }
 );
 
-export const deleteShift = createAsyncThunk(
+export const deleteShift = createAsyncThunk<any,DeletePayload>(
   "shifts/delete",
-  async (id, thunkAPI) => {
+  async (props, thunkAPI) => {
     try {
-      await axios.delete(`${BASE_URL}/${id}`);
-      return id; // return deleted shift ID
+      console.log(props.id);
+      await axios.delete(`${BASE_URL}/${props.id}`);
+      return props.id;
     } catch (error) {
       const message = axios.isAxiosError(error)
         ? error.response?.data?.message || "Failed to delete shift"

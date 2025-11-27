@@ -22,7 +22,6 @@ const ShiftCard = ({ shift, onDelete }: Props) => {
   const end = formatTime(shift.end_time);
 
   const days = shift.shift_days?.map((d: any) => d.day) || [];
-
   return (
     <View style={styles.card}>
       <View style={styles.headerRow}>
