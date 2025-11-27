@@ -1,19 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { InputFieldProps } from '../../types';
 import { inputFieldStyles } from '../styles/InputField.styles';
-
-interface InputFieldProps {
-  label?: string;
-  value: string;
-  onChangeText: (text: string) => void;
-  placeholder?: string;
-  secureTextEntry?: boolean;
-  keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad';
-  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
-  error?: string;
-  icon?: React.ReactNode;
-  onIconPress?: () => void;
-}
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
 const InputField: React.FC<InputFieldProps> = ({
   label,

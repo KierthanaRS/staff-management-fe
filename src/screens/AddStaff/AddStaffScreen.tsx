@@ -8,7 +8,7 @@ import Shift from './components/Shift';
 import { AppDispatch, RootState } from './../../app/store';
 import { addStaffStyles } from './styles/AddStaffScreen.styles';
 import { fetchShifts } from './../../app/slice/shiftSlice';
-import { FormData, Ref } from '../../types/staff';
+import { FormData, Ref } from '../../types/';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
 

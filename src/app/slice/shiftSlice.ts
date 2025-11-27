@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Config from "react-native-config";
-import { ShiftState, CreateShiftPayload, DeletePayload } from "../../types/staff"
+import { ShiftState, CreateShiftPayload, DeletePayload } from "../../types/"
 
 const BASE_URL = `${Config.REACT_NATIVE_BACKEND_URL}/shift`;
 

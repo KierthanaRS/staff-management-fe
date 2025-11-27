@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Switch, TouchableOpacity } from 'react-native';
 import { SquarePen, Trash2 } from 'lucide-react-native';
 import { styles } from '../styles/StaffCard.styles';
-import { StaffCardProps } from '../../../types/staff';
+import { StaffCardProps } from '../../../types/';
 import { theme } from '../../../theme';
 
 const StaffCard = ({

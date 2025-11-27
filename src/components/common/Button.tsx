@@ -1,14 +1,8 @@
 import React from 'react';
-import { TouchableOpacity, Text, ActivityIndicator } from 'react-native';
+import { ActivityIndicator, TouchableOpacity, Text } from 'react-native';
+import { ButtonProps } from '../../types';
 import { buttonStyles } from '../styles/Button.styles';
-
-interface ButtonProps {
-  title: string;
-  onPress: () => void;
-  variant?: 'primary' | 'secondary';
-  disabled?: boolean;
-  loading?: boolean;
-}
+import { theme } from '../../theme';
 
 const Button: React.FC<ButtonProps> = ({
   title,
@@ -25,7 +19,9 @@ const Button: React.FC<ButtonProps> = ({
 
   const textStyle = [
     buttonStyles.text,
-    variant === 'primary' ? buttonStyles.primaryText : buttonStyles.secondaryText,
+    variant === 'primary'
+      ? buttonStyles.primaryText
+      : buttonStyles.secondaryText,
   ];
 
   return (
@@ -38,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({
       {loading ? (
         <ActivityIndicator
           size="small"
-          color={variant === 'primary' ? '#FFFFFF' : '#007AFF'}
+          color={variant === 'primary' ? theme.colours.background : theme.colours.primary}
         />
       ) : (
         <Text style={textStyle}>{title}</Text>

@@ -3,7 +3,7 @@ import Button from '../../components/common/Button';
 import { View, Text, ActivityIndicator, FlatList } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { styles } from './styles/Staff.styles';
-import type { RootStackParamList } from '../../types/staff';
+import type { RootStackParamList } from '../../types/';
 import { AppDispatch, RootState } from './../../app/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchStaffs, deleteStaffData } from '../../app/slice/staffSlice';

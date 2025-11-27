@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { theme } from "../../theme";
+import { StyleSheet } from 'react-native';
+import { theme } from '../../theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,16 +9,15 @@ export const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     color: theme.colours.text,
-    fontWeight: "600",
+    fontWeight: '600',
     marginBottom: 10,
   },
 
   daysRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    // flexWrap: "wrap",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-
+  
   dayButton: {
     paddingVertical: 8,
     paddingHorizontal: 4,
@@ -41,6 +40,6 @@ export const styles = StyleSheet.create({
 
   dayTextSelected: {
     color: theme.colours.background,
-    fontWeight: "500",
+    fontWeight: '500',
   },
 });

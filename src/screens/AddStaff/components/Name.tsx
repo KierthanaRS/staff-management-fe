@@ -1,6 +1,6 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
 import InputField from '../../../components/common/InputField';
-import { FormData, Ref, Props } from '../../../types/staff';
+import { FormData, Ref, Props } from '../../../types/';
 
 const Name = forwardRef<Ref, Props>((props, ref) => {
   const { formData, errors, setErrors, handleInputChange } = props;

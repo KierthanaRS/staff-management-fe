@@ -1,0 +1,76 @@
+export interface Ref {
+  validate: () => boolean;
+}
+
+export interface Props {
+  formData: FormData;
+  errors: Partial<FormData>;
+  setErrors: React.Dispatch<React.SetStateAction<Partial<FormData>>>;
+  handleInputChange: (field: keyof FormData, value: string) => void;
+}
+
+export interface NestedButtonProps {
+  isEdit: boolean;
+  editId?: number;
+  formData: FormData;
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  validateForm: () => boolean;
+}
+
+export interface StaffCardProps {
+  name: string;
+  shift: string;
+  id: string;
+  onEdit: () => void;
+  onDelete: () => void;
+}
+
+export interface TimePickerProps {
+  label?: string;
+  value: string;
+  onChange: (time: string) => void;
+}
+
+export interface ButtonProps {
+  title: string;
+  onPress: () => void;
+  variant?: 'primary' | 'secondary';
+  disabled?: boolean;
+  loading?: boolean;
+}
+
+export const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+export interface DayselectorProps {
+  value: string[];          
+  onChange: (days: string[]) => void;
+}
+
+interface DropDownItem {
+  label: string;
+  value: string;
+}
+
+export interface DropDownProps {
+  label?: string;
+  selectedValue: string;
+  onValueChange: (value: string) => void;
+  items: DropDownItem[];
+  placeholder?: string;
+  error?: string;
+}
+
+export interface InputFieldProps {
+  label?: string;
+  value: string;
+  onChangeText: (text: string) => void;
+  placeholder?: string;
+  secureTextEntry?: boolean;
+  keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad';
+  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
+  error?: string;
+  icon?: React.ReactNode;
+  onIconPress?: () => void;
+}

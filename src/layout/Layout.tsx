@@ -1,19 +1,25 @@
 import React from 'react';
-import { View, Text, TouchableOpacity} from 'react-native';
-import { useRoute, useNavigation, NavigationProp } from '@react-navigation/native';
-import { styles } from './Layout.style'
-import type {RootStackParamList} from '../types/staff'
+import { View, Text, TouchableOpacity } from 'react-native';
+import {
+  useRoute,
+  useNavigation,
+  NavigationProp,
+  getFocusedRouteNameFromRoute,
+} from '@react-navigation/native';
+import { styles } from './Layout.style';
+import type { RootStackParamList } from '../types';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-
-
-const Layout: React.FC<LayoutProps> = ({  children }) => {
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   const route = useRoute();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-
+  const activeChild = getFocusedRouteNameFromRoute(route) ?? 'Main';
+  const Navigate = (screen: 'StaffStatus' | 'ShiftSchedule' | 'Addstaff') => {
+    navigation.navigate('Main', { screen: screen });
+  };
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
@@ -21,21 +27,23 @@ const Layout: React.FC<LayoutProps> = ({  children }) => {
       </View>
       <View style={styles.header}>
         <TouchableOpacity
-          style={route.name === 'StaffStatus' ? styles.activeLink : styles.link}
-         onPress={() => navigation.navigate("Main", {screen: "StaffStatus"})}
+          style={
+            activeChild === 'StaffStatus' ? styles.activeLink : styles.link
+          }
+          onPress={() => Navigate('StaffStatus')}
         >
           <Text style={styles.linkText}>Staff Status</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={route.name === 'ShiftSchedule' ? styles.activeLink : styles.link}
-          onPress={() => navigation.navigate("Main", { screen: "ShiftSchedule"})}
+          style={
+            activeChild === 'ShiftSchedule' ? styles.activeLink : styles.link
+          }
+          onPress={() => Navigate('ShiftSchedule')}
         >
           <Text style={styles.linkText}>Shift Schedules</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.content}>
-        {children}
-      </View>
+      <View style={styles.content}>{children}</View>
     </View>
   );
 };

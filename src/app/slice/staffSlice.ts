@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Config from "react-native-config";
-import {StaffState, CreateStaffPayload, DeletePayload, UpdateStaffPayload} from '../../types/staff'
+import {StaffState, CreateStaffPayload, DeletePayload, UpdateStaffPayload} from '../../types/'
 const BASE_URL = `${Config.REACT_NATIVE_BACKEND_URL}/staff`;
 
 export const fetchStaffs = createAsyncThunk(

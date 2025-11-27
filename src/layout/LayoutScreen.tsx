@@ -1,8 +1,8 @@
-import Layout from "../layout/Layout";
-import { createStackNavigator } from "@react-navigation/stack";
-import StaffStatusScreen from "../screens/StaffStatus/StaffStatusScreen";
-import ShiftSchedulesScreen from "../screens/ShiftSchedules/ShiftSchedulesScreen";
-import AddStaffScreen from "../screens/AddStaff/AddStaffScreen";
+import AddStaffScreen from '../screens/AddStaff/AddStaffScreen';
+import Layout from '../layout/Layout';
+import ShiftSchedulesScreen from '../screens/ShiftSchedules/ShiftSchedulesScreen';
+import StaffStatusScreen from '../screens/StaffStatus/StaffStatusScreen';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const InnerStack = createStackNavigator();
 

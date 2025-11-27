@@ -1,21 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import { DropDownProps } from '../../types';
 import { dropDownStyles } from '../styles/DropDown.styles';
-
-interface DropDownItem {
-  label: string;
-  value: string;
-}
-
-interface DropDownProps {
-  label?: string;
-  selectedValue: string;
-  onValueChange: (value: string) => void;
-  items: DropDownItem[];
-  placeholder?: string;
-  error?: string;
-}
+import { Picker } from '@react-native-picker/picker';
+import { View, Text } from 'react-native';
 
 const DropDown: React.FC<DropDownProps> = ({
   label,
@@ -35,8 +22,12 @@ const DropDown: React.FC<DropDownProps> = ({
           style={dropDownStyles.picker}
         >
           <Picker.Item label={placeholder} value="" />
-          {items.map((item) => (
-            <Picker.Item key={item.value} label={item.label} value={item.value} />
+          {items.map(item => (
+            <Picker.Item
+              key={item.value}
+              label={item.label}
+              value={item.value}
+            />
           ))}
         </Picker>
       </View>

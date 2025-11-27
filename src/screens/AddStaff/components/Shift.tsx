@@ -1,6 +1,6 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
 import DropDown from '../../../components/common/DropDown';
-import { FormData, Ref, Props } from '../../../types/staff';
+import { FormData, Ref, Props } from '../../../types/';
 import { useSelector } from 'react-redux';
 import {  RootState } from '../../../app/store';
 

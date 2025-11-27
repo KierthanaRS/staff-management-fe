@@ -1,19 +1,12 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import { styles } from "../styles/DaySelector.styles";
+import React from 'react';
+import { DAYS, DayselectorProps } from '../../types';
+import { styles } from '../styles/DaySelector.styles';
+import { View, Text, TouchableOpacity } from 'react-native';
 
-const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
-interface Props {
-  value: string[];          
-  onChange: (days: string[]) => void;
-}
-
-const DaySelector = ({ value, onChange }: Props) => {
-
+const DaySelector = ({ value, onChange }: DayselectorProps) => {
   const toggleDay = (day: string) => {
     if (value.includes(day)) {
-      onChange(value.filter(d => d !== day)); 
+      onChange(value.filter(d => d !== day));
     } else {
       onChange([...value, day]);
     }
@@ -24,7 +17,7 @@ const DaySelector = ({ value, onChange }: Props) => {
       <Text style={styles.label}>Select Days</Text>
 
       <View style={styles.daysRow}>
-        {DAYS.map((day) => (
+        {DAYS.map(day => (
           <TouchableOpacity
             key={day}
             style={[
