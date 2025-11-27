@@ -19,6 +19,8 @@ export interface Props {
 }
 
 export interface ButtonProps {
+  isEdit : boolean,
+  editId?: number,
   formData: FormData,
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   loading: boolean,
@@ -45,10 +47,17 @@ export interface StaffState {
 }
 
 export type RootStackParamList = {
-  Main: { screen: 'StaffStatus' | 'ShiftSchedule' | 'Addstaff' };
+  Main: {
+    screen: 'StaffStatus' | 'ShiftSchedule' | 'Addstaff';
+    params?: {
+      staff?: any;
+    };
+  };
   StaffStatus: undefined;
   ShiftSchedule: undefined;
-  Addstaff: undefined;
+  Addstaff: {
+    staff?: any;   
+  } | undefined;
 };
 
 export interface StaffCardProps {
@@ -82,4 +91,15 @@ export interface CreateStaffPayload{
 
 export interface DeletePayload{
   id: number
+}
+
+export interface UpdateStaffPayload {
+  id: number;
+  data: {
+    full_name: string;
+    email: string;
+    phone_number: string;
+    shift_id: number;
+    staffs_role: string;
+  };
 }

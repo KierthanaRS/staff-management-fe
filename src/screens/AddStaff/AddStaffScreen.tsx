@@ -12,14 +12,16 @@ import { FormData, Ref } from '../../types/staff';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
 
-const AddStaffScreen: React.FC<any> = () => {
+const AddStaffScreen: React.FC<any> = ({ route }) => {
+  const staff = route?.params?.staff;
   const [formData, setFormData] = useState<FormData>({
-    fullName: '',
-    phoneNumber: '',
-    email: '',
-    shift: '',
-    role: '',
+    fullName: staff?.full_name ?? '',
+    phoneNumber: staff?.phone_number ?? '',
+    email: staff?.email ?? '',
+    shift: staff?.shift_id ? String(staff.shift_id) : '',
+    role: staff?.role ?? '',
   });
+  const isEdit = !!staff;
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [loading, setLoading] = useState(false);
   const nameRef = useRef<Ref>(null);
@@ -121,7 +123,9 @@ const AddStaffScreen: React.FC<any> = () => {
       </ScrollView>
       <View style={addStaffStyles.footer}>
         <NestedButton
-        formData={formData}
+        isEdit={isEdit}
+        editId={staff?.id}
+          formData={formData}
           loading={loading}
           setLoading={setLoading}
           setFormData={setFormData}

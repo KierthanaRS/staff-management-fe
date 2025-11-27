@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Config from "react-native-config";
-import {StaffState, CreateStaffPayload, DeletePayload} from '../../types/staff'
+import {StaffState, CreateStaffPayload, DeletePayload, UpdateStaffPayload} from '../../types/staff'
 const BASE_URL = `${Config.REACT_NATIVE_BACKEND_URL}/staff`;
 
 export const fetchStaffs = createAsyncThunk(
@@ -55,9 +55,9 @@ export const createStaff = createAsyncThunk<any, CreateStaffPayload>(
   }
 );
 
-export const updateStaffData = createAsyncThunk(
+export const updateStaffData = createAsyncThunk<any,UpdateStaffPayload >(
   "staff/update",
-  async ({ id, data }: { id: number; data: any }, thunkAPI) => {
+  async ({ id, data }, thunkAPI) => {
     try {
       const res = await axios.put(`${BASE_URL}/${id}`, data);
       return res.data.data;

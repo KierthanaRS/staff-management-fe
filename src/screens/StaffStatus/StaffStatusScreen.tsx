@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import Button from '../../components/common/Button';
-import { View, Text, ActivityIndicator,FlatList } from 'react-native';
+import { View, Text, ActivityIndicator, FlatList } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { styles } from './styles/Staff.styles';
 import type { RootStackParamList } from '../../types/staff';
 import { AppDispatch, RootState } from './../../app/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchStaffs,deleteStaffData } from '../../app/slice/staffSlice';
+import { fetchStaffs, deleteStaffData } from '../../app/slice/staffSlice';
 import StaffCard from './components/StaffCard';
-
+import { theme } from '../../theme';
 const StaffStatusScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { loading } = useSelector((state: RootState) => state.staff);
@@ -19,16 +19,23 @@ const StaffStatusScreen = () => {
     dispatch(fetchStaffs());
   }, []);
   const handleAdd = () => {
-    navigation.navigate('Main', { screen: 'Addstaff' });
+    navigation.navigate('Main', { screen: 'Addstaff', params: undefined });
   };
 
-  const handleDelete = ( id : number) => {
-     dispatch(deleteStaffData( {id} ))
-  }
-   if (loading) {
+  const handleEdit = (item: any) => {
+    navigation.navigate('Main', {
+      screen: 'Addstaff',
+      params: { staff: item },
+    });
+  };
+
+  const handleDelete = (id: number) => {
+    dispatch(deleteStaffData({ id }));
+  };
+  if (loading) {
     return (
       <View style={styles.loading}>
-        <ActivityIndicator size="large" color="#5020fc" />
+        <ActivityIndicator size="large" color={theme.colours.primary} />
         <Text style={styles.loadingText}>Loading data...</Text>
       </View>
     );
@@ -38,18 +45,14 @@ const StaffStatusScreen = () => {
       <Button title="+ Add New Staff" onPress={handleAdd} variant="primary" />
       <FlatList
         data={staffList}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
           <StaffCard
             name={item.full_name}
             shift={item.shifts?.shift_name ?? 'No Shift'}
             id={item.id.toString()}
-            onEdit={() =>
-              navigation.navigate('Main', {
-                screen: 'Addstaff'
-              })
-            }
-            onDelete={()=>handleDelete(item.id)}
+            onEdit={() => handleEdit(item)}
+            onDelete={() => handleDelete(item.id)}
           />
         )}
         contentContainerStyle={{ paddingTop: 15 }}
