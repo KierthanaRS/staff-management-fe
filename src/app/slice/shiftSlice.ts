@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Config from "react-native-config";
-import { ShiftState, CreateShiftPayload, DeletePayload } from "../../types/"
+import { ShiftState, CreateShiftPayload, DeletePayload } from "../../types"
 
 const BASE_URL = `${Config.REACT_NATIVE_BACKEND_URL}/shift`;
 
@@ -15,21 +15,6 @@ export const fetchShifts = createAsyncThunk(
       const message = axios.isAxiosError(error)
         ? error.response?.data?.message || "Failed to fetch shifts"
         : "Failed to fetch shifts";
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
-
-export const fetchShiftById = createAsyncThunk(
-  "shifts/fetchById",
-  async (id, thunkAPI) => {
-    try {
-      const response = await axios.get(`${BASE_URL}/${id}`);
-      return response.data.data;
-    } catch (error) {
-      const message = axios.isAxiosError(error)
-        ? error.response?.data?.message || "Failed to fetch shift"
-        : "Failed to fetch shift";
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -55,7 +40,6 @@ export const deleteShift = createAsyncThunk<any,DeletePayload>(
   "shifts/delete",
   async (props, thunkAPI) => {
     try {
-      console.log(props.id);
       await axios.delete(`${BASE_URL}/${props.id}`);
       return props.id;
     } catch (error) {
@@ -95,20 +79,6 @@ const shiftSlice = createSlice({
         state.status = 'success';
       })
       .addCase(fetchShifts.rejected, (state, action) => {
-        state.loading = false;
-        state.status = 'error';
-      })
-
-      .addCase(fetchShiftById.pending, (state) => {
-        state.loading = true;
-        state.status = 'loading';
-      })
-      .addCase(fetchShiftById.fulfilled, (state, action) => {
-        state.loading = false;
-        state.selectedShift = action.payload;
-        state.status = 'success';
-      })
-      .addCase(fetchShiftById.rejected, (state, action) => {
         state.loading = false;
         state.status = 'error';
       })

@@ -7,6 +7,7 @@ export const addStaffStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   loadingText: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -14,12 +15,14 @@ export const addStaffStyles = StyleSheet.create({
     marginBottom: 12,
     textAlign: 'center',
   },
+
   activitIndicator: {
     fontSize: 16,
     color: theme.colours.primary,
     textAlign: 'center',
     marginTop: 16,
   },
+
   container: {
     flex: 1,
     backgroundColor: theme.colours.background,
@@ -34,51 +37,62 @@ export const addStaffStyles = StyleSheet.create({
     shadowRadius: 8,
     overflow: 'hidden',
   },
+
   title: {
     fontSize: theme.typography.xl,
     fontWeight: '900',
     color: theme.colours.text,
     marginBottom: 10,
   },
+
   formContainer: {
     flex: 1,
   },
+
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+
   halfWidth: {
     flex: 0.5,
     marginRight: 10,
   },
+
   fullWidth: {
     flex: 1,
   },
+
   buttonContainer: {
     marginTop: 30,
     marginBottom: 20,
     flexDirection: 'column',
     gap: 10,
   },
+
   scrollView: {
     flex: 1,
     padding: 10,
   },
+
   scrollViewContent: {
     flexGrow: 1,
     paddingBottom: 20,
   },
+
   countryPhoneRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginTop: 10,
   },
+
   underline: {
     borderBottomWidth: 1,
     borderBottomColor: theme.colours.border,
     marginBottom: 20,
   },
+
   countryCodeWrapper: {
     flex: 0.3,
   },
@@ -86,6 +100,7 @@ export const addStaffStyles = StyleSheet.create({
   phoneInputWrapper: {
     flex: 0.65,
   },
+  
   scrollContent: {
     paddingBottom: 20,
   },
@@ -98,5 +113,9 @@ export const addStaffStyles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 5,
     backgroundColor: theme.colours.background,
+  },
+
+  view: {
+    height: 140,
   },
 });

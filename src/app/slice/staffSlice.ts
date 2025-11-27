@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Config from "react-native-config";
-import {StaffState, CreateStaffPayload, DeletePayload, UpdateStaffPayload} from '../../types/'
+import {StaffState, CreateStaffPayload, DeletePayload, UpdateStaffPayload} from '../../types'
 const BASE_URL = `${Config.REACT_NATIVE_BACKEND_URL}/staff`;
 
 export const fetchStaffs = createAsyncThunk(
@@ -10,23 +10,6 @@ export const fetchStaffs = createAsyncThunk(
     try {
       const res = await axios.get(BASE_URL);
       return res.data.data; // APIResponse.success() stores data in .data
-    } catch (error) {
-      const message =
-        axios.isAxiosError(error)
-          ? error.response?.data?.message || "Failed to fetch staff"
-          : "Failed to fetch staff";
-
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
-
-export const fetchStaffById = createAsyncThunk(
-  "staff/fetchById",
-  async (id: number, thunkAPI) => {
-    try {
-      const res = await axios.get(`${BASE_URL}/${id}`);
-      return res.data.data;
     } catch (error) {
       const message =
         axios.isAxiosError(error)
@@ -115,18 +98,6 @@ const staffSlice = createSlice({
         state.staffList = action.payload;
       })
       .addCase(fetchStaffs.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      })
-
-      .addCase(fetchStaffById.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchStaffById.fulfilled, (state, action) => {
-        state.loading = false;
-        state.selectedStaff = action.payload;
-      })
-      .addCase(fetchStaffById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })

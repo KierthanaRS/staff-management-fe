@@ -1,12 +1,12 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
 import InputField from '../../../components/common/InputField';
-import { FormData, Ref, Props } from '../../../types/';
+import { StaffFormData, Ref, Props } from '../../../types';
 
 const Name = forwardRef<Ref, Props>((props, ref) => {
   const { formData, errors, setErrors, handleInputChange } = props;
 
   const validate = (): boolean => {
-    const newErrors: Partial<FormData> = {};
+    const newErrors: Partial<StaffFormData> = {};
     if (!formData.fullName.trim()) {
       newErrors.fullName = 'Name is required';
     }

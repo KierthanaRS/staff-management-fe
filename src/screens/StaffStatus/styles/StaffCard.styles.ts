@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { theme } from '../../../theme'
+import { theme } from '../../../theme';
 
 export const styles = StyleSheet.create({
   card: {
@@ -15,13 +15,14 @@ export const styles = StyleSheet.create({
 
   row: {
     flexDirection: 'row',
-    // justifyContent: 'space-between',
     alignItems: 'center',
   },
-  rowContainer:{
-     flexDirection:'row',
-     justifyContent:'space-between'
+
+  rowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
+
   name: {
     fontWeight: 'bold',
     fontSize: theme.typography.md,

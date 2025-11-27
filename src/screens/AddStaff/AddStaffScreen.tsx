@@ -8,13 +8,13 @@ import Shift from './components/Shift';
 import { AppDispatch, RootState } from './../../app/store';
 import { addStaffStyles } from './styles/AddStaffScreen.styles';
 import { fetchShifts } from './../../app/slice/shiftSlice';
-import { FormData, Ref } from '../../types/';
+import { StaffFormData, Ref } from '../../types';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
 
 const AddStaffScreen: React.FC<any> = ({ route }) => {
   const staff = route?.params?.staff;
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<StaffFormData>({
     fullName: staff?.full_name ?? '',
     phoneNumber: staff?.phone_number ?? '',
     email: staff?.email ?? '',
@@ -22,7 +22,7 @@ const AddStaffScreen: React.FC<any> = ({ route }) => {
     role: staff?.role ?? '',
   });
   const isEdit = !!staff;
-  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [errors, setErrors] = useState<Partial<StaffFormData>>({});
   const [loading, setLoading] = useState(false);
   const nameRef = useRef<Ref>(null);
   const phoneRef = useRef<Ref>(null);
@@ -30,11 +30,9 @@ const AddStaffScreen: React.FC<any> = ({ route }) => {
   const shiftRef = useRef<Ref>(null);
   const roleRef = useRef<Ref>(null);
   const { status } = useSelector((state: RootState) => state.shift);
-  const { shifts } = useSelector((state: RootState) => state.shift);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    // if(shifts.length === 0)
     dispatch(fetchShifts());
   }, []);
 
@@ -66,7 +64,7 @@ const AddStaffScreen: React.FC<any> = ({ route }) => {
     return isValid;
   };
 
-  const handleInputChange = (field: keyof FormData, value: string) => {
+  const handleInputChange = (field: keyof StaffFormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: undefined }));
@@ -119,12 +117,12 @@ const AddStaffScreen: React.FC<any> = ({ route }) => {
             handleInputChange={handleInputChange}
           />
         </View>
-        <View style={{ height: 140 }} />
+        <View style={addStaffStyles.view} />
       </ScrollView>
       <View style={addStaffStyles.footer}>
         <NestedButton
-        isEdit={isEdit}
-        editId={staff?.id}
+          isEdit={isEdit}
+          editId={staff?.id}
           formData={formData}
           loading={loading}
           setLoading={setLoading}

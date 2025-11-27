@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import InputField from '../../../components/common/InputField';
-import TimePicker from '../../../components/common/TimePicker';
 import Button from '../../../components/common/Button';
-import { styles } from '../styles/NewShift.styles';
-import { View, Text } from 'react-native';
 import DaySelector from '../../../components/common/DaySelector';
+import InputField from '../../../components/common/InputField';
+import React, { useState } from 'react';
+import TimePicker from '../../../components/common/TimePicker';
+import Toast from 'react-native-toast-message';
 import { AppDispatch } from '../../../app/store';
 import { createShift } from '../../../app/slice/shiftSlice';
+import { styles } from '../styles/NewShift.styles';
+import { View, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
-import Toast from 'react-native-toast-message';
 
 const NewShift: React.FC = () => {
   const [shiftName, setShiftName] = useState('');
@@ -32,8 +32,7 @@ const NewShift: React.FC = () => {
         type: 'error',
         text1: `${error}`,
       });
-    }
-    finally {
+    } finally {
       setDays([]);
       setEndTime('');
       setShiftName('');

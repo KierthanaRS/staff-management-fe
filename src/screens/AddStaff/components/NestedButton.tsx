@@ -1,14 +1,14 @@
 import React from 'react';
-import { NestedButtonProps } from '../../../types/';
-import { addStaffStyles } from '../styles/AddStaffScreen.styles';
 import Button from '../../../components/common/Button';
-import { View } from 'react-native';
-import type {RootStackParamList} from '../../../types/'
 import Toast from 'react-native-toast-message';
+import { addStaffStyles } from '../styles/AddStaffScreen.styles';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { AppDispatch } from '../../../app/store';
+import { View } from 'react-native';
 import { createStaff, updateStaffData } from '../../../app/slice/staffSlice';
+import { NestedButtonProps } from '../../../types';
 import { useDispatch } from 'react-redux';
+import type {RootStackParamList} from '../../../types'
 
 const NestedButton: React.FC<NestedButtonProps> = props => {
   const { isEdit, editId, formData,loading, validateForm, setFormData, setLoading } = props;
@@ -21,7 +21,7 @@ const NestedButton: React.FC<NestedButtonProps> = props => {
     try {
       if (isEdit) {
         dispatch( updateStaffData({
-          id: props.editId!,
+          id: editId!,
           data:{
           full_name: formData.fullName,
           email: formData.email,

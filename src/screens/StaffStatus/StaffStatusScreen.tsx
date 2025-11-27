@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
 import Button from '../../components/common/Button';
-import { View, Text, ActivityIndicator, FlatList } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { styles } from './styles/Staff.styles';
-import type { RootStackParamList } from '../../types/';
-import { AppDispatch, RootState } from './../../app/store';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchStaffs, deleteStaffData } from '../../app/slice/staffSlice';
+import React, { useEffect } from 'react';
 import StaffCard from './components/StaffCard';
+import { AppDispatch, RootState } from './../../app/store';
+import { fetchStaffs, deleteStaffData } from '../../app/slice/staffSlice';
+import { styles } from './styles/Staff.styles';
 import { theme } from '../../theme';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
+import { View, Text, ActivityIndicator, FlatList } from 'react-native';
+import type { RootStackParamList } from '../../types';
+
 const StaffStatusScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { loading } = useSelector((state: RootState) => state.staff);

@@ -1,9 +1,7 @@
-import { StyleSheet } from "react-native";
-import { theme } from "../../../theme";
+import { StyleSheet } from 'react-native';
 
-export const styles=   StyleSheet.create({
-    container:{
-        padding:10
-    }
-    
-})
+export const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+  },
+});

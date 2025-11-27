@@ -2,7 +2,7 @@ export interface Staff {
   id: number;
 }
 
-export interface FormData {
+export interface StaffFormData {
   fullName: string;
   phoneNumber: string;
   email: string;
@@ -38,4 +38,10 @@ export interface UpdateStaffPayload {
 
 export interface DeletePayload {
   id: number;
+}
+
+export interface AttendanceState {
+  checkIns: Record<number, number>;
+  loading: boolean;
+  error: string | null;
 }

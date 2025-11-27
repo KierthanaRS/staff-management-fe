@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Trash2 } from 'lucide-react-native';
 import { styles } from '../styles/ShiftCard.style';
-import {theme } from '../../../theme'
+import { theme } from '../../../theme';
+import { Trash2 } from 'lucide-react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 interface Props {
   shift: any;
@@ -28,7 +28,7 @@ const ShiftCard = ({ shift, onDelete }: Props) => {
         <Text style={styles.title}>{shift.shift_name} Shift</Text>
 
         <TouchableOpacity onPress={onDelete}>
-            <Trash2 size={22} color={theme.colours.secondary}/>
+          <Trash2 size={22} color={theme.colours.secondary} />
         </TouchableOpacity>
       </View>
 

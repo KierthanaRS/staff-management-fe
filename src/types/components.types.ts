@@ -1,19 +1,20 @@
+import { StaffFormData } from './index';
 export interface Ref {
   validate: () => boolean;
 }
 
 export interface Props {
-  formData: FormData;
-  errors: Partial<FormData>;
-  setErrors: React.Dispatch<React.SetStateAction<Partial<FormData>>>;
-  handleInputChange: (field: keyof FormData, value: string) => void;
+  formData: StaffFormData;
+  errors: Partial<StaffFormData>;
+  setErrors: React.Dispatch<React.SetStateAction<Partial<StaffFormData>>>;
+  handleInputChange: (field: keyof StaffFormData, value: string) => void;
 }
 
 export interface NestedButtonProps {
   isEdit: boolean;
   editId?: number;
-  formData: FormData;
-  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  formData: StaffFormData;
+  setFormData: React.Dispatch<React.SetStateAction<StaffFormData>>;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   validateForm: () => boolean;
@@ -41,10 +42,10 @@ export interface ButtonProps {
   loading?: boolean;
 }
 
-export const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+export const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 export interface DayselectorProps {
-  value: string[];          
+  value: string[];
   onChange: (days: string[]) => void;
 }
 

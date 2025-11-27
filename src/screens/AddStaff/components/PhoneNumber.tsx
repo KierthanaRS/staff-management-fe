@@ -1,14 +1,13 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
 import InputField from '../../../components/common/InputField';
-import { FormData, Ref, Props } from '../../../types/';
+import { StaffFormData, Ref, Props } from '../../../types';
 
 const PhoneNumber = forwardRef<Ref, Props>((props, ref) => {
   const { formData, errors, setErrors, handleInputChange } = props;
 
   const validate = (): boolean => {
-    const newErrors: Partial<FormData> = {};
-    if (!formData.phoneNumber.trim())
-       return true;
+    const newErrors: Partial<StaffFormData> = {};
+    if (!formData.phoneNumber.trim()) return true;
     else if (!/^\d{10}$/.test(formData.phoneNumber))
       newErrors.phoneNumber = 'Phone number is invalid';
     setErrors(prev => ({ ...prev, ...newErrors }));

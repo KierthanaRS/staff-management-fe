@@ -1,6 +1,6 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
 import DropDown from '../../../components/common/DropDown';
-import { FormData, Ref, Props } from '../../../types/';
+import { StaffFormData, Ref, Props } from '../../../types';
 
 const Role = forwardRef<Ref, Props>((props, ref) => {
   const { formData, errors, setErrors, handleInputChange } = props;
@@ -13,7 +13,7 @@ const Role = forwardRef<Ref, Props>((props, ref) => {
   ];
 
   const validate = (): boolean => {
-    const newErrors: Partial<FormData> = {};
+    const newErrors: Partial<StaffFormData> = {};
     if (!formData.role) newErrors.role = 'Role is required';
     setErrors(prev => ({ ...prev, ...newErrors }));
     return Object.keys(newErrors).length === 0;

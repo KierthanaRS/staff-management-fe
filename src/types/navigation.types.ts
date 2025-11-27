@@ -7,7 +7,9 @@ export type RootStackParamList = {
   };
   StaffStatus: undefined;
   ShiftSchedule: undefined;
-  Addstaff: {
-    staff?: any;
-  } | undefined;
+  Addstaff:
+    | {
+        staff?: any;
+      }
+    | undefined;
 };

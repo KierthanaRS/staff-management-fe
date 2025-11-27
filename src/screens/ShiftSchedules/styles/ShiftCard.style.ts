@@ -1,5 +1,6 @@
-import { StyleSheet } from "react-native";
-import { theme } from "../../../theme";
+import { StyleSheet } from 'react-native';
+import { theme } from '../../../theme';
+
 export const styles = StyleSheet.create({
   card: {
     backgroundColor: theme.colours.background,
@@ -11,19 +12,19 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 6,
     borderLeftColor: theme.colours.primary,
-    borderLeftWidth:6
+    borderLeftWidth: 6,
   },
 
   headerRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   title: {
     fontSize: theme.typography.md,
-    fontWeight: "bold",
-    color:theme.colours.text,
+    fontWeight: 'bold',
+    color: theme.colours.text,
   },
 
   time: {
@@ -33,8 +34,8 @@ export const styles = StyleSheet.create({
   },
 
   daysRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     marginTop: 10,
     gap: 6,
   },
@@ -49,6 +50,6 @@ export const styles = StyleSheet.create({
   dayText: {
     fontSize: 12,
     color: theme.colours.primary,
-    fontWeight: "600",
+    fontWeight: '600',
   },
 });
