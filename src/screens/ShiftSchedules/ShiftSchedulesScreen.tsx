@@ -22,7 +22,7 @@ const ShiftSchedulesScreen = () => {
     });
   }
   return (
-    <View style={styles.container}>
+    <View style={styles.container} >
       <NewShift />
       <ExsistingShift />
     </View>

@@ -78,7 +78,7 @@ const AddStaffScreen: React.FC<any> = ({ route }) => {
         contentContainerStyle={addStaffStyles.scrollViewContent}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={addStaffStyles.title}>Add New Staff Member</Text>
+        <Text style={addStaffStyles.title}> {isEdit ? "Edit Staff Details" : "Add New Staff Member"}</Text>
         <View style={addStaffStyles.underline}></View>
         <View style={addStaffStyles.formContainer}>
           <Name

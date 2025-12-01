@@ -2,10 +2,11 @@ import Button from '../../../components/common/Button';
 import DaySelector from '../../../components/common/DaySelector';
 import InputField from '../../../components/common/InputField';
 import React, { useState } from 'react';
-import TimePicker from '../../../components/common/TimePicker';
+import Timer from './Timer'
 import Toast from 'react-native-toast-message';
-import { AppDispatch,RootState } from '../../../app/store';
+import { AppDispatch, RootState } from '../../../app/store';
 import { createShift } from '../../../app/slice/shiftSlice';
+import { ShiftForm } from '../../../types';
 import { styles } from '../styles/NewShift.styles';
 import { View, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,16 +16,47 @@ const NewShift: React.FC = () => {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [days, setDays] = useState<string[]>([]);
+  const [errorMessage, setErrorMessage] = useState<Partial<ShiftForm>>({});
   const { status } = useSelector((state: RootState) => state.shift);
   const dispatch = useDispatch<AppDispatch>();
 
-  if ( status === 'error') {
+  if (status === 'error') {
     Toast.show({
       type: 'error',
       text1: 'Failed to add shift data',
     });
   }
+
+  const validateShift = () => {
+    const errors: Partial<ShiftForm> = {};
+
+    if (!shiftName.trim()) {
+      errors.shiftName = 'Shift name is required';
+    }
+
+    if (!startTime || !endTime) {
+      errors.startTime = 'Start time and end time are required';
+    } else {
+      const toMinutes = (time: string) => {
+        const [h, m] = time.split(':').map(Number);
+        return h * 60 + m;
+      };
+
+      if (toMinutes(startTime) >= toMinutes(endTime)) {
+        errors.endTime = 'End time must be after start time';
+      }
+    }
+
+    if (days.length === 0) {
+      errors.days = 'At least one day must be selected';
+    }
+
+    setErrorMessage(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleAddShift = () => {
+    if (!validateShift()) return;
     try {
       dispatch(
         createShift({
@@ -54,21 +86,22 @@ const NewShift: React.FC = () => {
         value={shiftName}
         placeholder="Shift Name (e.g., Closing Shift)"
         onChangeText={setShiftName}
+        error={errorMessage.shiftName}
       />
-
-      <View style={styles.timer}>
-        <View style={styles.timerComponent}>
-          <TimePicker
-            label="Start Time"
-            value={startTime}
-            onChange={setStartTime}
-          />
-        </View>
-        <View style={styles.timerComponent}>
-          <TimePicker label="End Time" value={endTime} onChange={setEndTime} />
-        </View>
+      <Timer
+        startTime={startTime}
+        setStartTime={setStartTime}
+        endTime={endTime}
+        setEndTime={setEndTime}
+        errorMessage={errorMessage}
+      />
+      
+      <View>
+        <DaySelector value={days} onChange={setDays} />
+        {errorMessage.days && (
+          <Text style={styles.errorText}>{errorMessage.days}</Text>
+        )}
       </View>
-      <DaySelector value={days} onChange={setDays} />
       <Button title="+  Create Shift Schedule" onPress={handleAddShift} />
     </View>
   );

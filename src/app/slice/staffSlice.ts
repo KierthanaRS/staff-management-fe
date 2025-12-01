@@ -14,7 +14,7 @@ export const fetchStaffs = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const res = await axios.get(BASE_URL);
-      return res.data.data; // APIResponse.success() stores data in .data
+      return res.data.data; 
     } catch (error) {
       const message = axios.isAxiosError(error)
         ? error.response?.data?.message || 'Failed to fetch staff'
@@ -30,7 +30,7 @@ export const createStaff = createAsyncThunk<any, CreateStaffPayload>(
   async (payload: any, thunkAPI) => {
     try {
       const res = await axios.post(BASE_URL, payload);
-      return res.data.data; // newly created staff
+      return res.data.data; 
     } catch (error) {
       const message = axios.isAxiosError(error)
         ? error.response?.data?.message || 'Failed to create staff'
@@ -105,6 +105,8 @@ const staffSlice = createSlice({
       .addCase(fetchStaffs.fulfilled, (state, action) => {
         state.loading = false;
         state.staffList = action.payload;
+        state.status = 'idle';
+        state.error = null;
       })
       .addCase(fetchStaffs.rejected, (state, action) => {
         state.loading = false;
@@ -118,6 +120,8 @@ const staffSlice = createSlice({
       .addCase(createStaff.fulfilled, (state, action) => {
         state.loading = false;
         state.staffList.push(action.payload);
+        state.status = 'idle';
+        state.error = null;
       })
       .addCase(createStaff.rejected, (state, action) => {
         state.loading = false;
@@ -133,6 +137,8 @@ const staffSlice = createSlice({
         state.staffList = state.staffList.map(staff =>
           staff.id === action.payload.id ? action.payload : staff,
         );
+        state.status = 'idle';
+        state.error = null;
       })
       .addCase(updateStaffData.rejected, (state, action) => {
         state.loading = false;
@@ -148,6 +154,8 @@ const staffSlice = createSlice({
         state.staffList = state.staffList.filter(
           staff => staff.id !== action.payload,
         );
+        state.status = 'idle';
+        state.error = null;
       })
       .addCase(deleteStaffData.rejected, (state, action) => {
         state.loading = false;

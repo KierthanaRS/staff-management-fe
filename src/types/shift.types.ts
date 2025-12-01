@@ -11,3 +11,10 @@ export interface CreateShiftPayload {
   end_time: string;
   shift_days: string[];
 }
+
+export interface ShiftForm {
+  shiftName : string,
+  startTime: string,
+  endTime : string,
+  days: string,
+}

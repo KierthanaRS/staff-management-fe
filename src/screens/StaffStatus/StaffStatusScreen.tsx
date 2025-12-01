@@ -16,16 +16,8 @@ const StaffStatusScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { loading } = useSelector((state: RootState) => state.staff);
   const { staffList } = useSelector((state: RootState) => state.staff);
-  const { checkIns } = useSelector((state: RootState) => state.attendance);
   const { status } = useSelector((state: RootState) => state.staff);
   const dispatch = useDispatch<AppDispatch>();
-  
-  if ( status === 'error') {
-    Toast.show({
-      type: 'error',
-      text1: 'Failed to load staff data',
-    });
-  }
 
   useEffect(() => {
     dispatch(fetchStaffs());
@@ -53,6 +45,15 @@ const StaffStatusScreen = () => {
       </View>
     );
   }
+
+  if (status === 'error') {
+    Toast.show({
+      type: 'error',
+      text1: 'Error',
+      text2: 'There was an error fetching staff data.',
+    });
+  }
+
   return (
     <View style={styles.container}>
       <Button title="+ Add New Staff" onPress={handleAdd} variant="primary" />

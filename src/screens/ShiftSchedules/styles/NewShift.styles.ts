@@ -59,4 +59,10 @@ export const styles = StyleSheet.create({
   timerComponent: {
     flex: 1,
   },
+
+  errorText: {
+    color: theme.colours.secondary,
+    fontSize: theme.typography.sm,
+    marginBottom:5
+  }
 });

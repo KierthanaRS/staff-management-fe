@@ -14,8 +14,6 @@ const StaffCard = ({ name, shift, id, onEdit, onDelete }: StaffCardProps) => {
    const attendanceId = useSelector(
     (state: RootState) => state.attendance.checkIns[staffId]
   );
-  console.log(attendanceId);
-  console.log();
   const isCheckedIn = !!attendanceId;
   const handleToggle = () => {
     if (!isCheckedIn) {

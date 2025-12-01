@@ -21,18 +21,10 @@ const NestedButton: React.FC<NestedButtonProps> = props => {
     setLoading,
   } = props;
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const { status } = useSelector((state: RootState) => state.staff);
   const { staffList } = useSelector((state: RootState) => state.staff);
   const { roleCapacity } = useSelector((state: RootState) => state.staff);
 
   const dispatch = useDispatch<AppDispatch>();
-
-  if (status === 'error') {
-    Toast.show({
-      type: 'error',
-      text1: 'Failed to process staff data',
-    });
-  }
 
   const handleRegister = async () => {
     if (!validateForm()) return;

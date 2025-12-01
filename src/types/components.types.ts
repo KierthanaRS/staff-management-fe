@@ -1,4 +1,4 @@
-import { StaffFormData } from './index';
+import { StaffFormData, ShiftForm } from './index';
 export interface Ref {
   validate: () => boolean;
 }
@@ -74,4 +74,12 @@ export interface InputFieldProps {
   error?: string;
   icon?: React.ReactNode;
   onIconPress?: () => void;
+}
+
+export interface TimerProps {
+  startTime : string,
+  setStartTime: React.Dispatch<React.SetStateAction<string>>,
+  endTime: string,
+  setEndTime: React.Dispatch<React.SetStateAction<string>>,
+  errorMessage : Partial<ShiftForm>
 }
