@@ -16,6 +16,7 @@ export interface StaffState {
   loading: boolean;
   error: string | null;
   status: string;
+  roleCapacity: Record<string,number>;
 }
 
 export interface CreateStaffPayload {

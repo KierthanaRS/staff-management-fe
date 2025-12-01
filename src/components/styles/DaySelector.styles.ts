@@ -20,10 +20,10 @@ export const styles = StyleSheet.create({
   
   dayButton: {
     paddingVertical: 8,
-    paddingHorizontal: 4,
+    paddingHorizontal: 8,
     borderRadius: 50,
     backgroundColor: theme.colours.background,
-    marginHorizontal: 4,
+    marginHorizontal: 2,
     marginBottom: 4,
   },
 
