@@ -13,5 +13,7 @@ export const styles = StyleSheet.create({
     fontSize: theme.typography.xxxl,
     fontWeight: 'bold',
     color: theme.colours.primary,
+    textAlign: 'center',
+    
   },
 });

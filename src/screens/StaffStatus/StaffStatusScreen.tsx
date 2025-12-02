@@ -21,7 +21,7 @@ const StaffStatusScreen = () => {
 
   useEffect(() => {
     dispatch(fetchStaffs());
-    dispatch(getAttendance());   
+    dispatch(getAttendance());
   }, []);
   const handleAdd = () => {
     navigation.navigate('Main', { screen: 'Addstaff', params: undefined });

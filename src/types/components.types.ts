@@ -83,3 +83,7 @@ export interface TimerProps {
   setEndTime: React.Dispatch<React.SetStateAction<string>>,
   errorMessage : Partial<ShiftForm>
 }
+
+export type StaffStatusProps = {
+  navigate?: (screen: string, params?: any) => void;
+};

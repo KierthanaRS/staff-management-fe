@@ -4,7 +4,7 @@
  *
  * @format
  */
-
+import React from "react";
 import LayoutScreen from './src/layout/LayoutScreen';
 import SplashScreen from './src/screens/Spalsh/SplashScreen';
 import Toast from 'react-native-toast-message';
@@ -32,10 +32,10 @@ function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
+      <SafeAreaProvider>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <AppContent />
+      </SafeAreaProvider>
   );
 }
 

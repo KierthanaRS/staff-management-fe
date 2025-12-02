@@ -1,11 +1,21 @@
-const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+const { getDefaultConfig } = require("@react-native/metro-config");
 
-/**
- * Metro configuration
- * https://reactnative.dev/docs/metro
- *
- * @type {import('@react-native/metro-config').MetroConfig}
- */
-const config = {};
+module.exports = (() => {
+  const config = getDefaultConfig(__dirname);
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+  // remove ALL web extensions
+  config.resolver.sourceExts = [
+    "tsx",
+    "ts",
+    "jsx",
+    "js",
+    "json"
+  ];
+
+  // also block web-specific files
+  config.resolver.assetExts = config.resolver.assetExts.filter(
+    ext => !ext.includes("web")
+  );
+
+  return config;
+})();

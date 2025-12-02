@@ -7,6 +7,7 @@ import {
   DeletePayload,
   UpdateStaffPayload,
 } from '../../types';
+
 const BASE_URL = `${Config.REACT_NATIVE_BACKEND_URL}/staff`;
 
 export const fetchStaffs = createAsyncThunk(

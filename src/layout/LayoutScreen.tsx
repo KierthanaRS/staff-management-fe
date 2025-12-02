@@ -1,3 +1,4 @@
+import React from 'react';
 import AddStaffScreen from '../screens/AddStaff/AddStaffScreen';
 import Layout from '../layout/Layout';
 import ShiftSchedulesScreen from '../screens/ShiftSchedules/ShiftSchedulesScreen';

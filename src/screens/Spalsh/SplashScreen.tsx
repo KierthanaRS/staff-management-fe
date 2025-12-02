@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { Text, Animated } from 'react-native';
 import { styles } from './styles/Splash.style';
+import { useNavigation } from '@react-navigation/native';
 
-const SplashScreen = ({ navigation }: any) => {
+const SplashScreen = () => {
+  const navigation = useNavigation<any>();
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
