@@ -31,7 +31,9 @@ const StaffCard = ({ name, shift, id, onEdit, onDelete }: StaffCardProps) => {
           <Switch
             value={isCheckedIn}
             onValueChange={handleToggle}
-            thumbColor={theme.colours.primary}
+            trackColor={{true: theme.colours.primary, false: theme.colours.subtext}}
+            thumbColor={theme.colours.background}
+            style={styles.switch}
           />
         </View>
         <View style={styles.actions}>

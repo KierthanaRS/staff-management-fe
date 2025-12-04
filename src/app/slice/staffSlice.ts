@@ -15,6 +15,7 @@ export const fetchStaffs = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const res = await axios.get(BASE_URL);
+      console.log(res.data.data)
       return res.data.data; 
     } catch (error) {
       const message = axios.isAxiosError(error)

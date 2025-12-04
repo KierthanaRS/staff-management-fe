@@ -10,11 +10,13 @@ import { AppDispatch, RootState } from './../../app/store';
 import { addStaffStyles } from './styles/AddStaffScreen.styles';
 import { fetchShifts } from './../../app/slice/shiftSlice';
 import { StaffFormData, Ref } from '../../types';
+import { useAppLayout } from '../../hooks/useAppLayout';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
 
 const AddStaffScreen: React.FC<any> = ({ route }) => {
   const staff = route?.params?.staff;
+  const { isDesktop } = useAppLayout();
   const [formData, setFormData] = useState<StaffFormData>({
     fullName: staff?.full_name ?? '',
     phoneNumber: staff?.phone_number ?? '',
@@ -72,7 +74,7 @@ const AddStaffScreen: React.FC<any> = ({ route }) => {
   };
 
   return (
-    <View style={addStaffStyles.container}>
+    <View style={[addStaffStyles.container, isDesktop && addStaffStyles.containerDesktop]}>
       <ScrollView
         style={addStaffStyles.scrollView}
         contentContainerStyle={addStaffStyles.scrollViewContent}

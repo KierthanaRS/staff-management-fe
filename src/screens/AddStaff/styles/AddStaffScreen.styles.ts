@@ -38,6 +38,24 @@ export const addStaffStyles = StyleSheet.create({
     overflow: 'hidden',
   },
 
+  containerDesktop: {
+    width: '60%',
+    maxWidth: 900,
+    alignSelf: 'center',
+    marginTop: 40,
+    marginBottom: 40,
+    paddingHorizontal: 40,
+    paddingVertical: 30,
+    backgroundColor: theme.colours.background,
+    borderRadius: 20,
+    shadowColor: theme.colours.border,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+
+    elevation: 8,
+  },
+
   title: {
     fontSize: theme.typography.xl,
     fontWeight: '900',
@@ -100,7 +118,7 @@ export const addStaffStyles = StyleSheet.create({
   phoneInputWrapper: {
     flex: 0.65,
   },
-  
+
   scrollContent: {
     paddingBottom: 20,
   },

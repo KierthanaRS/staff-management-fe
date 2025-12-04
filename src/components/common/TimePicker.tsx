@@ -17,27 +17,45 @@ const TimePicker = ({ label, value, onChange }: TimePickerProps) => {
       onChange(`${hours}:${minutes}`);
     }
   };
+  const handleWebChange = (e: any) => {
+    onChange(e.target.value);
+  };
 
   return (
     <View style={styles.container}>
       {label && <Text style={styles.label}>{label}</Text>}
-
-      <TouchableOpacity style={styles.input} onPress={() => setShow(true)}>
-        <Text style={value ? styles.value : styles.placeholder}>
-          {value || 'HH:MM'}
-        </Text>
-
-        <Clock size={20} />
-      </TouchableOpacity>
-
-      {show && (
-        <DateTimePicker
-          value={new Date()}
-          mode="time"
-          is24Hour={true}
-          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-          onChange={onTimeSelected}
+      {Platform.OS === "web" ? (
+        <input
+          type="time"
+          value={value}
+          onChange={handleWebChange}
+          style={{ 
+            padding: 10, 
+            fontSize: 16, 
+            borderRadius: 8 
+          }}
         />
+      ) : (
+
+      <View>
+        <TouchableOpacity style={styles.input} onPress={() => setShow(true)}>
+          <Text style={value ? styles.value : styles.placeholder}>
+            {value || 'HH:MM'}
+          </Text>
+
+          <Clock size={20} />
+        </TouchableOpacity>
+
+        {show && (
+          <DateTimePicker
+            value={new Date()}
+            mode="time"
+            is24Hour={true}
+            display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+            onChange={onTimeSelected}
+          />
+        )}
+      </View>
       )}
     </View>
   );

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { InputFieldProps } from '../../types';
 import { inputFieldStyles } from '../styles/InputField.styles';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { theme } from '../../theme';
 
 const InputField: React.FC<InputFieldProps> = ({
   label,
@@ -32,11 +33,13 @@ const InputField: React.FC<InputFieldProps> = ({
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
+          placeholderTextColor={theme.colours.muted}
           secureTextEntry={secureTextEntry}
           keyboardType={keyboardType}
           autoCapitalize={autoCapitalize}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          underlineColorAndroid="transparent" 
         />
         {icon && (
           <TouchableOpacity onPress={onIconPress} style={inputFieldStyles.icon}>

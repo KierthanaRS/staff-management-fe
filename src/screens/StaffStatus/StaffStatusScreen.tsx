@@ -7,6 +7,7 @@ import { getAttendance } from '../../app/slice/attendanceSlice';
 import { fetchStaffs, deleteStaffData } from '../../app/slice/staffSlice';
 import { styles } from './styles/Staff.styles';
 import { theme } from '../../theme';
+import { useAppLayout } from '../../hooks/useAppLayout';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, ActivityIndicator, FlatList } from 'react-native';
@@ -14,6 +15,7 @@ import type { RootStackParamList } from '../../types';
 
 const StaffStatusScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const { isDesktop } = useAppLayout();
   const { loading } = useSelector((state: RootState) => state.staff);
   const { staffList } = useSelector((state: RootState) => state.staff);
   const { status } = useSelector((state: RootState) => state.staff);
@@ -46,17 +48,11 @@ const StaffStatusScreen = () => {
     );
   }
 
-  if (status === 'error') {
-    Toast.show({
-      type: 'error',
-      text1: 'Error',
-      text2: 'There was an error fetching staff data.',
-    });
-  }
-
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isDesktop && styles.containerDesktop]}>
+      { !isDesktop &&
       <Button title="+ Add New Staff" onPress={handleAdd} variant="primary" />
+      }
       <FlatList
         data={staffList}
         keyExtractor={item => item.id.toString()}
@@ -71,6 +67,11 @@ const StaffStatusScreen = () => {
         )}
         contentContainerStyle={{ paddingTop: 15 }}
       />
+      { isDesktop &&
+      <View style={styles.desktopButton}>
+       <Button title="+ Add New Staff" onPress={handleAdd} variant="primary" />
+      </View>
+      }
     </View>
   );
 };

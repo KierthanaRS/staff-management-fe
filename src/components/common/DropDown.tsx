@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState} from 'react';
 import { DropDownProps } from '../../types';
 import { dropDownStyles } from '../styles/DropDown.styles';
-import { Picker } from '@react-native-picker/picker';
-import { View, Text } from 'react-native';
+import { useAppLayout } from '../../hooks/useAppLayout';
+import { View, Text , TouchableOpacity, Modal, FlatList, Platform} from 'react-native';
 
 const DropDown: React.FC<DropDownProps> = ({
   label,
@@ -12,26 +12,68 @@ const DropDown: React.FC<DropDownProps> = ({
   placeholder = 'Select an option',
   error,
 }) => {
+  const [visible, setVisible] = useState(false);
+  const { isDesktop } = useAppLayout();
+  const selectedLabel =items.find(item => item.value === selectedValue)?.label || placeholder;
+  const handleSelect = (value: string) => {
+    setVisible(false);
+    onValueChange(value);
+  };
   return (
     <View style={dropDownStyles.container}>
       {label && <Text style={dropDownStyles.label}>{label}</Text>}
-      <View style={dropDownStyles.pickerContainer}>
-        <Picker
-          selectedValue={selectedValue}
-          onValueChange={onValueChange}
-          style={dropDownStyles.picker}
+      <TouchableOpacity
+        style={dropDownStyles.inputBox}
+        onPress={() => setVisible(true)}
+      >
+        <Text
+          style={[
+            dropDownStyles.inputText,
+            !selectedValue && dropDownStyles.placeholder,
+          ]}
         >
-          <Picker.Item label={placeholder} value="" />
-          {items.map(item => (
-            <Picker.Item
-              key={item.value}
-              label={item.label}
-              value={item.value}
-            />
-          ))}
-        </Picker>
-      </View>
+          {selectedLabel}
+        </Text>
+      </TouchableOpacity>
       {error && <Text style={dropDownStyles.errorText}>{error}</Text>}
+      <Modal
+        visible={visible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setVisible(false)}
+      >
+        <View style={[dropDownStyles.modalOverlay, isDesktop && dropDownStyles.modalOverlayDesktop]}>
+          <View
+            style={[
+              dropDownStyles.modalContent,
+              isDesktop && dropDownStyles.modalContentDesktop,
+              Platform.OS === 'android' && dropDownStyles.androidCentered,
+            ]}
+          >
+            <Text style={[dropDownStyles.modalTitle, isDesktop && dropDownStyles.modalTitleDesktop]}>{label}</Text>
+
+            <FlatList
+              data={items}
+              keyExtractor={(item) => item.value}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={[dropDownStyles.option, isDesktop && dropDownStyles.optionDesktop]}
+                  onPress={() => handleSelect(item.value)}
+                >
+                  <Text style={dropDownStyles.optionText}>{item.label}</Text>
+                </TouchableOpacity>
+              )}
+            />
+
+            <TouchableOpacity
+              onPress={() => setVisible(false)}
+              style={dropDownStyles.cancelButton}
+            >
+              <Text style={dropDownStyles.cancelButtonText}>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };

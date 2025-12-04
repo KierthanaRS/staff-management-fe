@@ -4,6 +4,7 @@ import { AttendanceState } from '../../types';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const BASE_URL = `${Config.REACT_NATIVE_BACKEND_URL}/attendance`;
+
 const initialState: AttendanceState = {
   checkIns: {},
   loading: false,

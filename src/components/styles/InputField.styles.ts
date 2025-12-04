@@ -36,6 +36,7 @@ export const inputFieldStyles = StyleSheet.create({
     height: 50,
     fontSize: 16,
     color: theme.colours.text,
+    outlineStyle: 'none' as any
   },
 
   icon: {

@@ -11,6 +11,8 @@ export const styles = StyleSheet.create({
     shadowColor: theme.colours.border,
     shadowOpacity: 0.08,
     shadowRadius: 6,
+    borderWidth:1,
+    borderColor:theme.colours.border,
     borderLeftColor: theme.colours.primary,
     borderLeftWidth: 6,
   },

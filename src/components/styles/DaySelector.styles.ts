@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
 
   daysRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
   },
   
   dayButton: {
@@ -23,8 +23,10 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: 50,
     backgroundColor: theme.colours.background,
-    marginHorizontal: 2,
+    marginHorizontal: 1,
     marginBottom: 4,
+    borderWidth: 1,
+    borderColor: theme.colours.border,
   },
 
   daySelected: {
