@@ -22,6 +22,8 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 12,
     elevation: 8,
+    borderWidth:1,
+    borderColor: theme.colours.border
   },
 
   title: {

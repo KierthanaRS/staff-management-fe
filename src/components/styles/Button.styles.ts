@@ -16,9 +16,10 @@ export const buttonStyles = StyleSheet.create({
   },
 
   secondary: {
-    backgroundColor: theme.colours.muted,
+    backgroundColor: theme.colours.background,
     borderWidth: 1,
-    borderColor: theme.colours.border,
+    borderColor: theme.colours.primary,
+    color: theme.colours.primary,
   },
 
   disabled: {

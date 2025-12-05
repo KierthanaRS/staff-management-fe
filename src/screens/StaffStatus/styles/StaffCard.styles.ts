@@ -3,6 +3,8 @@ import { theme } from '../../../theme';
 
 export const styles = StyleSheet.create({
   card: {
+    borderWidth:1,
+    borderColor:theme.colours.border,
     backgroundColor: theme.colours.background,
     padding: 15,
     marginVertical: 8,

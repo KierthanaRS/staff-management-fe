@@ -15,18 +15,22 @@ export const styles = StyleSheet.create({
 
   daysRow: {
     flexDirection: 'row',
+    gap:2
     // justifyContent: 'space-between',
   },
   
   dayButton: {
     paddingVertical: 8,
     paddingHorizontal: 8,
-    borderRadius: 50,
+    minWidth:50,
+    borderRadius: 8,
     backgroundColor: theme.colours.background,
     marginHorizontal: 1,
     marginBottom: 4,
     borderWidth: 1,
     borderColor: theme.colours.border,
+    justifyContent:'center',
+    alignItems:'center'
   },
 
   daySelected: {

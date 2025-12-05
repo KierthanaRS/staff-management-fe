@@ -46,7 +46,7 @@ export const addStaffStyles = StyleSheet.create({
     marginBottom: 40,
     paddingHorizontal: 40,
     paddingVertical: 30,
-    backgroundColor: theme.colours.background,
+    backgroundColor: theme.colours.border,
     borderRadius: 20,
     shadowColor: theme.colours.border,
     shadowOffset: { width: 0, height: 4 },

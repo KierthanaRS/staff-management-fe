@@ -16,12 +16,15 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 40,
     paddingVertical: 30,
     backgroundColor: theme.colours.background,
+    borderWidth:1,
+    borderColor:theme.colours.border,
     borderRadius: 20,
     shadowColor: theme.colours.border,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
-    shadowRadius: 12,
+    shadowRadius: 16,
     elevation: 8,
+
   },
   title: {
     fontSize: 24,
