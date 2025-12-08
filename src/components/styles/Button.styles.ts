@@ -36,6 +36,6 @@ export const buttonStyles = StyleSheet.create({
   },
   
   secondaryText: {
-    color: theme.colours.text,
+    color: theme.colours.primary,
   },
 });

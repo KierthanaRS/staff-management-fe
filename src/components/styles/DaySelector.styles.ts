@@ -20,6 +20,20 @@ export const styles = StyleSheet.create({
   },
   
   dayButton: {
+    paddingVertical: 4,
+    paddingHorizontal: 4,
+    minWidth:40,
+    borderRadius: 8,
+    backgroundColor: theme.colours.background,
+    marginHorizontal: 1,
+    marginBottom: 14,
+    borderWidth: 1,
+    borderColor: theme.colours.border,
+    justifyContent:'center',
+    alignItems:'center'
+  },
+
+  dayButtonDesktop: {
     paddingVertical: 8,
     paddingHorizontal: 8,
     minWidth:50,

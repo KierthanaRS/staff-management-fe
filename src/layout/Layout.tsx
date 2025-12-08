@@ -24,7 +24,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
   return (
     <View style={[styles.container, isDesktop && styles.containerDesktop]}>
-      <View style={[isDesktop && styles.topBarDesktop]}>
+      {/* <View style={[isDesktop && styles.topBarDesktop]}> */}
       <View style={[styles.topBar]}>
         <Text style={styles.title}>Staff Manager</Text>
       </View>
@@ -48,7 +48,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <Text style={[styles.linkText, isDesktop && styles.linkTextDesktop]}>Shift Schedules</Text>
         </TouchableOpacity>
       </View>
-      </View>
+      {/* </View> */}
       <View style={[styles.content, isDesktop && styles.contentDesktop ]}>{children}</View>
     </View>
   );

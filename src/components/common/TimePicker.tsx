@@ -3,22 +3,58 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { Clock } from 'lucide-react-native';
 import { styles } from '../styles/TimePicker.styles';
 import { TimePickerProps } from '../../types';
-import { View, Text, TouchableOpacity, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, Platform, Button } from 'react-native';
+import { useAppLayout } from '../../hooks/useAppLayout';
 
 const TimePicker = ({ label, value, onChange }: TimePickerProps) => {
   const [show, setShow] = useState(false);
-
+  const [tempTime, setTempTime] = useState<Date>(new Date());
+  const { isios } = useAppLayout();
+  
   const onTimeSelected = (_: any, selectedTime?: Date) => {
-    setShow(false);
-
-    if (selectedTime) {
-      const hours = selectedTime.getHours().toString().padStart(2, '0');
-      const minutes = selectedTime.getMinutes().toString().padStart(2, '0');
-      onChange(`${hours}:${minutes}`);
+    if (!isios) {
+      setShow(false);
+      if (selectedTime) {
+        const hours = selectedTime.getHours().toString().padStart(2, '0');
+        const minutes = selectedTime.getMinutes().toString().padStart(2, '0');
+        onChange(`${hours}:${minutes}`);
+      }
+    } else {
+      if (selectedTime) {
+        setTempTime(selectedTime);
+      }
     }
   };
+
   const handleWebChange = (e: any) => {
     onChange(e.target.value);
+  };
+
+  const confirmTime = () => {
+    const hours = tempTime.getHours().toString().padStart(2, "0");
+    const minutes = tempTime.getMinutes().toString().padStart(2, "0");
+    onChange(`${hours}:${minutes}`);
+    setShow(false);
+  };
+
+  const cancelTime = () => {
+    setShow(false);
+  };
+
+  const parseTimeValue = (timeString: string | undefined): Date => {
+    if (timeString) {
+      const [hours, minutes] = timeString.split(':');
+      const date = new Date();
+      date.setHours(parseInt(hours, 10));
+      date.setMinutes(parseInt(minutes, 10));
+      return date;
+    }
+    return new Date();
+  };
+
+  const openPicker = () => {
+    setTempTime(parseTimeValue(value));
+    setShow(true);
   };
 
   return (
@@ -36,26 +72,44 @@ const TimePicker = ({ label, value, onChange }: TimePickerProps) => {
           }}
         />
       ) : (
+        <View>
+          <TouchableOpacity style={styles.input} onPress={openPicker}>
+            <Text style={value ? styles.value : styles.placeholder}>
+              {value || 'HH:MM'}
+            </Text>
+            <Clock size={20} />
+          </TouchableOpacity>
 
-      <View>
-        <TouchableOpacity style={styles.input} onPress={() => setShow(true)}>
-          <Text style={value ? styles.value : styles.placeholder}>
-            {value || 'HH:MM'}
-          </Text>
+          {isios && show && (
+            <Modal animationType="slide" transparent={true} visible={show}>
+              <View style={styles.overlay}>
+                <View style={styles.content}>
+                  
+                  <DateTimePicker
+                    value={tempTime}
+                    mode="time"
+                    display="spinner"
+                    onChange={onTimeSelected}
+                  />
+                  <View style={styles.buttonContainer}>
+                    <Button title="Cancel" onPress={cancelTime} />
+                    <Button title="Confirm" onPress={confirmTime} />
+                  </View>
+                </View>
+              </View>
+            </Modal>
+          )}
 
-          <Clock size={20} />
-        </TouchableOpacity>
-
-        {show && (
-          <DateTimePicker
-            value={new Date()}
-            mode="time"
-            is24Hour={true}
-            display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-            onChange={onTimeSelected}
-          />
-        )}
-      </View>
+          {!isios && show && (
+            <DateTimePicker 
+              value={parseTimeValue(value)} 
+              mode="time" 
+              is24Hour={true} 
+              display="default" 
+              onChange={onTimeSelected} 
+            />
+          )}
+        </View>
       )}
     </View>
   );

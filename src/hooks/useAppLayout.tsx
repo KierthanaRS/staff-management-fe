@@ -2,7 +2,7 @@ import { Platform, useWindowDimensions } from 'react-native';
 
 export const useAppLayout = () => {
   const { width } = useWindowDimensions();
-
+  const isios = Platform.OS === 'ios';
   const isWeb = Platform.OS === 'web';
   return {
     width,
@@ -10,5 +10,6 @@ export const useAppLayout = () => {
     isDesktop: isWeb && width >= 1024,
     isTablet: width >= 600 && width < 1024,
     isMobile: width < 600,
+    isios,
   };
 };

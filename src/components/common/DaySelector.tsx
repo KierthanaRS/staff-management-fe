@@ -1,9 +1,11 @@
 import React from 'react';
 import { DAYS, DayselectorProps } from '../../types';
 import { styles } from '../styles/DaySelector.styles';
+import { useAppLayout } from '../../hooks/useAppLayout';
 import { View, Text, TouchableOpacity } from 'react-native';
 
 const DaySelector = ({ value, onChange }: DayselectorProps) => {
+  const { isDesktop } = useAppLayout();
   const toggleDay = (day: string) => {
     if (value.includes(day)) {
       onChange(value.filter(d => d !== day));
@@ -23,6 +25,7 @@ const DaySelector = ({ value, onChange }: DayselectorProps) => {
             style={[
               styles.dayButton,
               value.includes(day) && styles.daySelected,
+              isDesktop && styles.dayButtonDesktop,
             ]}
             onPress={() => toggleDay(day)}
           >

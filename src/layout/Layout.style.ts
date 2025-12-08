@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
   },
 
   containerDesktop: {
-    flexDirection: 'row',
+    flexDirection: 'column',
   },
 
   topBar: {
@@ -39,10 +39,12 @@ export const styles = StyleSheet.create({
   },
 
   headerDesktop: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     backgroundColor: 'transparent',
     borderBottomWidth: 0,
     marginTop: 20,
+    alignItems:'center',
+    justifyContent:'center'
   },
 
   link: {
@@ -64,9 +66,8 @@ export const styles = StyleSheet.create({
   activeLinkDesktop: {
     padding: 10,
     marginLeft:10,
-    borderBottomWidth: 0,
-    backgroundColor: theme.colours.border, 
-    borderRadius: 6,
+     borderBottomWidth: 4,
+    borderBottomColor: theme.colours.primary,
   },
 
   linkText: {
