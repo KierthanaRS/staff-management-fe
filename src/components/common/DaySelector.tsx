@@ -22,6 +22,7 @@ const DaySelector = ({ value, onChange }: DayselectorProps) => {
         {DAYS.map(day => (
           <TouchableOpacity
             key={day}
+            testID={`day-${day}`}
             style={[
               styles.dayButton,
               value.includes(day) && styles.daySelected,

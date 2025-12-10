@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Clock } from 'lucide-react-native';
+import { parseTimeValue, formatTime } from "../../utils/timeUtils";
 import { styles } from '../styles/TimePicker.styles';
 import { TimePickerProps } from '../../types';
 import { View, Text, TouchableOpacity, Modal, Platform, Button } from 'react-native';
@@ -15,9 +16,7 @@ const TimePicker = ({ label, value, onChange }: TimePickerProps) => {
     if (!isios) {
       setShow(false);
       if (selectedTime) {
-        const hours = selectedTime.getHours().toString().padStart(2, '0');
-        const minutes = selectedTime.getMinutes().toString().padStart(2, '0');
-        onChange(`${hours}:${minutes}`);
+        onChange(formatTime(selectedTime));
       }
     } else {
       if (selectedTime) {
@@ -31,9 +30,7 @@ const TimePicker = ({ label, value, onChange }: TimePickerProps) => {
   };
 
   const confirmTime = () => {
-    const hours = tempTime.getHours().toString().padStart(2, "0");
-    const minutes = tempTime.getMinutes().toString().padStart(2, "0");
-    onChange(`${hours}:${minutes}`);
+    onChange(formatTime(tempTime));
     setShow(false);
   };
 
@@ -41,16 +38,6 @@ const TimePicker = ({ label, value, onChange }: TimePickerProps) => {
     setShow(false);
   };
 
-  const parseTimeValue = (timeString: string | undefined): Date => {
-    if (timeString) {
-      const [hours, minutes] = timeString.split(':');
-      const date = new Date();
-      date.setHours(parseInt(hours, 10));
-      date.setMinutes(parseInt(minutes, 10));
-      return date;
-    }
-    return new Date();
-  };
 
   const openPicker = () => {
     setTempTime(parseTimeValue(value));
@@ -58,13 +45,17 @@ const TimePicker = ({ label, value, onChange }: TimePickerProps) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="time-picker-root">
       {label && <Text style={styles.label}>{label}</Text>}
       {Platform.OS === "web" ? (
         <input
           type="time"
           value={value}
           onChange={handleWebChange}
+          data-testid="web-time-input"
+          // @ts-expect-error testID is used by react-native-testing-library for web
+          testID="web-time-input"
+          aria-label="web-time-input"
           style={{ 
             padding: 10, 
             fontSize: 16, 

@@ -26,6 +26,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <TouchableOpacity
+      testID="button-container"
       style={buttonStyle}
       onPress={onPress}
       disabled={disabled || loading}

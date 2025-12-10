@@ -2,12 +2,12 @@ import React from "react";
 import { Provider } from "react-redux";
 import { setWebNavigate } from "./src/navigation/NavigationWebMock.web";
 import { store } from "./src/app/store";
-
 import StaffStatusScreen from "./src/screens/StaffStatus/StaffStatusScreen";
 import AddStaffScreen from "./src/screens/AddStaff/AddStaffScreen";
-import SplashScreen from "./src/screens/Spalsh/SplashScreen";
 import Layout from "./src/layout/Layout";
 import ShiftSchedulesScreen from "./src/screens/ShiftSchedules/ShiftSchedulesScreen";
+import SplashScreen from "./src/screens/Spalsh/SplashScreen";
+import Toast from 'react-native-toast-message';
 
 type RouteState = {
   name: string;
@@ -59,5 +59,10 @@ export default function App() {
     }
   };
 
-  return <Provider store={store}>{renderRoute()}</Provider>;
+  return (
+    <Provider store={store}>
+      {renderRoute()}
+      <Toast position="top" />
+    </Provider>
+  );
 }

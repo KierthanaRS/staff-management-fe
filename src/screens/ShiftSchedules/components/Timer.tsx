@@ -9,14 +9,14 @@ const Timer: React.FC <TimerProps> = (props) => {
     return (
         <View>
         <View style={styles.timer}>
-          <View style={styles.timerComponent}>
+          <View style={styles.timerComponent} testID="start-time-wrapper">
             <TimePicker
               label="Start Time"
               value={startTime}
               onChange={setStartTime}
             />
           </View>
-          <View style={styles.timerComponent}>
+          <View style={styles.timerComponent} testID="end-time-wrapper">
             <TimePicker
               label="End Time"
               value={endTime}
