@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useRef} from 'react';
+import AnimatedDeleteWrapper from '../../../components/common/AnimateDeleteWrapper';
 import { styles } from '../styles/ShiftCard.style';
 import { theme } from '../../../theme';
 import { Trash2 } from 'lucide-react-native';
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const ShiftCard = ({ shift, onDelete }: Props) => {
+  const animationRef = useRef<any>(null);
   const formatTime = (iso: string) => {
     const date = new Date(iso);
     return date.toLocaleTimeString('en-GB', {
@@ -22,16 +24,29 @@ const ShiftCard = ({ shift, onDelete }: Props) => {
   const end = formatTime(shift.end_time);
 
   const days = shift.shift_days?.map((d: any) => d.day) || [];
+
+  const handleDelete = () => {
+    if (animationRef.current) {
+      animationRef.current.animateDelete();
+    }
+  };
+
+  const handleDeleteComplete = () => {
+    onDelete();
+  };
   return (
+    <AnimatedDeleteWrapper
+    ref={animationRef}
+    onDeleteComplete={handleDeleteComplete}>
     <View style={styles.card}>
       <View style={styles.headerRow}>
         <Text style={styles.title}>{shift.shift_name} Shift</Text>
 
-        <TouchableOpacity onPress={onDelete}>
+        <TouchableOpacity onPress={handleDelete}>
           <Trash2 size={22} color={theme.colours.secondary} />
         </TouchableOpacity>
       </View>
-
+    
       <Text style={styles.time}>
         {start} - {end}
       </Text>
@@ -44,6 +59,7 @@ const ShiftCard = ({ shift, onDelete }: Props) => {
         ))}
       </View>
     </View>
+    </AnimatedDeleteWrapper>
   );
 };
 

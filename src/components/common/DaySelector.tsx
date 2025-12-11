@@ -25,8 +25,8 @@ const DaySelector = ({ value, onChange }: DayselectorProps) => {
             testID={`day-${day}`}
             style={[
               styles.dayButton,
-              value.includes(day) && styles.daySelected,
               isDesktop && styles.dayButtonDesktop,
+              value.includes(day) && styles.daySelected,
             ]}
             onPress={() => toggleDay(day)}
           >

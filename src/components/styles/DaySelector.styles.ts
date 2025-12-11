@@ -16,7 +16,6 @@ export const styles = StyleSheet.create({
   daysRow: {
     flexDirection: 'row',
     gap:2
-    // justifyContent: 'space-between',
   },
   
   dayButton: {

@@ -1,4 +1,5 @@
 import React from 'react';
+import AnimatedCard from '../../../components/common/AnimatedCard';
 import ShiftCard from './ShiftCard';
 import { deleteShift } from '../../../app/slice/shiftSlice';
 import { RootState, AppDispatch } from '../../../app/store';
@@ -14,6 +15,7 @@ const ExsistingShift: React.FC<any> = () => {
   };
   return (
     <View style={styles.container}>
+      <AnimatedCard>
       <FlatList
         data={shifts}
         renderItem={({ item }) => (
@@ -21,6 +23,7 @@ const ExsistingShift: React.FC<any> = () => {
         )}
         keyExtractor={(_, index) => index.toString()}
       />
+      </AnimatedCard>
     </View>
   );
 };

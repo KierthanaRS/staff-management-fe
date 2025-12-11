@@ -1,7 +1,7 @@
+import AnimatedCard from '../../components/common/AnimatedCard';
 import Button from '../../components/common/Button';
 import React, { useEffect } from 'react';
 import StaffCard from './components/StaffCard';
-import Toast from 'react-native-toast-message';
 import { AppDispatch, RootState } from './../../app/store';
 import { getAttendance } from '../../app/slice/attendanceSlice';
 import { fetchStaffs, deleteStaffData } from '../../app/slice/staffSlice';
@@ -18,13 +18,12 @@ const StaffStatusScreen = () => {
   const { isDesktop } = useAppLayout();
   const { loading } = useSelector((state: RootState) => state.staff);
   const { staffList } = useSelector((state: RootState) => state.staff);
-  const { status } = useSelector((state: RootState) => state.staff);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(fetchStaffs());
     dispatch(getAttendance());
-  }, []);
+  }, [isDesktop]);
   const handleAdd = () => {
     navigation.navigate('Main', { screen: 'Addstaff', params: undefined });
   };
@@ -53,6 +52,7 @@ const StaffStatusScreen = () => {
       { !isDesktop &&
       <Button title="+ Add New Staff" onPress={handleAdd} variant="primary" />
       }
+      <AnimatedCard>
       <FlatList
         data={staffList}
         keyExtractor={item => item.id.toString()}
@@ -67,6 +67,7 @@ const StaffStatusScreen = () => {
         )}
         contentContainerStyle={{ paddingTop: 15 }}
       />
+      </AnimatedCard>
       { isDesktop &&
       <View style={styles.desktopButton}>
        <Button title="+ Add New Staff" onPress={handleAdd} variant="primary" />

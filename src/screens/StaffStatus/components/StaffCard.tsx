@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
+import AnimatedDeleteWrapper from '../../../components/common/AnimateDeleteWrapper';
 import { checkIn, checkOut } from '../../../app/slice/attendanceSlice';
 import { SquarePen, Trash2 } from 'lucide-react-native';
 import { StaffCardProps } from '../../../types';
@@ -9,10 +10,11 @@ import { View, Text, Switch, TouchableOpacity } from 'react-native';
 import type { RootState, AppDispatch } from '../../../app/store';
 
 const StaffCard = ({ name, shift, id, onEdit, onDelete }: StaffCardProps) => {
+  const animationRef = useRef<any>(null);
   const dispatch = useDispatch<AppDispatch>();
   const staffId = Number(id);
-   const attendanceId = useSelector(
-    (state: RootState) => state.attendance.checkIns[staffId]
+  const attendanceId = useSelector(
+    (state: RootState) => state.attendance.checkIns[staffId],
   );
   const isCheckedIn = !!attendanceId;
   const handleToggle = () => {
@@ -22,7 +24,19 @@ const StaffCard = ({ name, shift, id, onEdit, onDelete }: StaffCardProps) => {
       dispatch(checkOut({ attendance_id: attendanceId }));
     }
   };
+  const handleDelete = () => {
+    if (animationRef.current) {
+      animationRef.current.animateDelete();
+    }
+  };
+
+  const handleDeleteComplete = () => {
+    onDelete();
+  };
   return (
+    <AnimatedDeleteWrapper
+    ref={animationRef}
+    onDeleteComplete={handleDeleteComplete}>
     <View style={styles.card}>
       <View style={styles.rowContainer}>
         <View style={styles.row}>
@@ -31,7 +45,10 @@ const StaffCard = ({ name, shift, id, onEdit, onDelete }: StaffCardProps) => {
           <Switch
             value={isCheckedIn}
             onValueChange={handleToggle}
-            trackColor={{true: theme.colours.primary, false: theme.colours.subtext}}
+            trackColor={{
+              true: theme.colours.primary,
+              false: theme.colours.subtext,
+            }}
             thumbColor={theme.colours.background}
             style={styles.switch}
           />
@@ -40,7 +57,7 @@ const StaffCard = ({ name, shift, id, onEdit, onDelete }: StaffCardProps) => {
           <TouchableOpacity onPress={onEdit}>
             <SquarePen color={theme.colours.primary} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={onDelete}>
+          <TouchableOpacity onPress={handleDelete}>
             <Trash2 color={theme.colours.secondary} />
           </TouchableOpacity>
         </View>
@@ -54,6 +71,7 @@ const StaffCard = ({ name, shift, id, onEdit, onDelete }: StaffCardProps) => {
         {id.length > 6 ? `ID: ${id.slice(0, 6)}...` : `ID: ${id}`}
       </Text>
     </View>
+    </AnimatedDeleteWrapper>
   );
 };
 
